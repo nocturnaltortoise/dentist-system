@@ -1,3 +1,7 @@
+# Intellij Idea files and folders
+.idea/
+*.iml
+
 *.class
 
 # Mobile Tools for Java (J2ME)
