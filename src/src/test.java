@@ -7,15 +7,15 @@ import java.sql.Statement;
  
 public class test
 {
-	public static void main (String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+    public static void main (String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
     {
-		Connection Conn = null;
+	Connection Conn = null;
         Statement stmt = null;
         Class.forName("org.gjt.mm.mysql.Driver").newInstance();
         String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
         try
         {
-        	Conn = DriverManager.getConnection(DB);
+            Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
                        
             ResultSet res = stmt.executeQuery("SELECT Patient.PatientID as 'ID', Patient.Title, " + 
@@ -40,7 +40,7 @@ public class test
         }
         catch (SQLException e)
         {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
         finally
         {
