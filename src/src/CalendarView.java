@@ -78,6 +78,10 @@ public class CalendarView extends JFrame{
         }
     }
 
+    private void displayAppointments(){
+        //TODO: take some list of appointments and display them in the right columns
+    }
+
     private static ImageIcon createImageIcon(String path) {
         try {
             File filePath = new File(path);
