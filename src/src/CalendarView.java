@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -36,16 +37,18 @@ public class CalendarView extends JFrame{
 
         dentistTab.setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("Month Name", SwingConstants.RIGHT);
+        LocalDate currentDate = LocalDate.now();
+
+        JLabel title = new JLabel(currentDate.getMonth().toString() + " " + currentDate.getYear(), SwingConstants.RIGHT);
         title.setOpaque(true);
         title.setBackground(new Color(37,90,108));
         title.setForeground(new Color(130,205,230));
-        title.setBorder(BorderFactory.createEmptyBorder(30,10,30,10));
+        title.setBorder(BorderFactory.createEmptyBorder(10,10,10,30)); //adds padding to the title
         dentistTab.add(title, BorderLayout.NORTH);
 
-        JPanel calendarGrid = new JPanel(new GridLayout(5,7));
+        JPanel calendarGrid = new JPanel(new GridLayout(1,7));
 
-        displayRows(calendarGrid, 2015, Month.DECEMBER, 1);
+        displayColumns(calendarGrid, currentDate.getYear(), currentDate.getMonth(), currentDate.getDayOfMonth());
 
         dentistTab.add(calendarGrid, BorderLayout.CENTER);
         contentPane.add(tabbedPane);
@@ -53,16 +56,25 @@ public class CalendarView extends JFrame{
         setVisible(true);
     }
 
-    private void displayRows(JPanel calendarGrid, int year, Month month, int day){
+    private void displayColumns(JPanel calendarGrid, int year, Month month, int day){
         LocalDate date = LocalDate.of(year, month, day);
-        for(int i = 0; i < 5; i++){
-            for(int j = 0; j < 7; j++){ //TODO: Better way of displaying one month's dates.
-                if(date.getMonth() == month){
-                    JButton testButton = new JButton(date.plusDays(j).toString());
-                    calendarGrid.add(testButton);
-                }
-            }
-            date = date.plusWeeks(1);
+        for(int j = 0; j < 7; j++){
+            LocalDate currentDate = date.plusDays(j);
+            JPanel dayPanel = new JPanel();
+            dayPanel.setLayout(new BoxLayout(dayPanel, BoxLayout.Y_AXIS));
+
+            dayPanel.setBackground(new Color(255,255,255));
+            dayPanel.setBorder(BorderFactory.createLineBorder(new Color(244,244,244)));
+
+            JLabel contents = new JLabel(currentDate.getDayOfWeek().toString() + " " + currentDate.getDayOfMonth());
+            contents.setAlignmentX(Component.CENTER_ALIGNMENT);
+            dayPanel.add(contents);
+
+            JButton appointmentsListButton = new JButton("Appointments");
+            appointmentsListButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            dayPanel.add(appointmentsListButton);
+
+            calendarGrid.add(dayPanel);
         }
     }
 
