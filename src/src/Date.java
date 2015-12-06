@@ -1,8 +1,5 @@
 import java.time.LocalDate;
 
-/**
- * Created by George Baron on 06/12/2015.
- */
 public class Date extends DateTime {
 
     private LocalDate date;

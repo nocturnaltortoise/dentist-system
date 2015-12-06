@@ -1,12 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-/**
- * Created by George Baron on 06/12/2015.
- */
 public class CalendarPanel extends JPanel {
 
     public CalendarPanel(LocalDate currentDate) {

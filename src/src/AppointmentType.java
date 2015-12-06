@@ -1,6 +1,3 @@
-/**
- * Created by George Baron on 06/12/2015.
- */
 public enum AppointmentType {
     HYGIENE("Hygiene"),
     CHECK_UP("Check Up"),

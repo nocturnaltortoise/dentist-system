@@ -2,9 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-/**
- * Created by George Baron on 06/12/2015.
- */
 public class DayPanel extends JPanel {
 
     private Date date;

@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by George Baron on 06/12/2015.
- */
 public class CalendarGrid extends JPanel {
 
     private final int DAYS_IN_WEEK = 7;
@@ -29,8 +26,12 @@ public class CalendarGrid extends JPanel {
         //Assumes already sorted (done in SQL!)
         // TODO: Write SQL nonsense instead of using test data
         ArrayList<Appointment> appointments = new ArrayList(Arrays.asList(TestAppointments.appointments));
-        ArrayList<Appointment> temp = new ArrayList<Appointment>();
-        for(Appointment a : appointments) if (a.getDate().equals(day) && p.equals(a.getPartner().getPartnerType())) temp.add(a);
+        ArrayList<Appointment> temp = new ArrayList<>();
+        for(Appointment a : appointments){
+            if(a.getDate().equals(day) && p.equals(a.getPartner().getPartnerType())){
+                temp.add(a);
+            }
+        }
         return temp;
     }
 }

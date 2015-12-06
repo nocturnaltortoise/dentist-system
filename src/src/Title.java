@@ -1,6 +1,3 @@
-/**
- * Created by Philip on 06/12/2015.
- */
 public enum Title {
     MR("Mr"),
     MRS("Mrs"),

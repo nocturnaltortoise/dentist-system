@@ -1,9 +1,5 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-/**
- * Created by George Baron on 06/12/2015.
- */
 public class TestAppointments {
 
     private static Date dob1 = new Date("13.02.1996");

@@ -1,10 +1,6 @@
 import java.time.LocalTime;
 
-/**
- * Created by George Baron on 06/12/2015.
- */
 public class Time extends DateTime {
-
 
     private LocalTime time;
 

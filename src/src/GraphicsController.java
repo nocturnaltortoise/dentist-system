@@ -3,7 +3,7 @@ import javax.swing.*;
 public class GraphicsController {
 
     public static void main(String[] args){
-        setLookAndFeel("system");
+        setLookAndFeel("cross platform");
         new ApplicationSelectorView(500,500);
     }
 
@@ -28,8 +28,6 @@ public class GraphicsController {
             e.printStackTrace();
             System.err.println("Can't find look and feel.");
         }
-
-        //Can we do anything more useful here?
 
     }
 

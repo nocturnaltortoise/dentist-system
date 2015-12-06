@@ -1,26 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by George Baron on 06/12/2015.
- */
-
 public class AppointmentButton extends JButton {
 
-    //Variables
-    private Appointment app;
-    private String name;
-    private String type;
-    private Time startTime;
-    private Time endTime;
-
-    public AppointmentButton(Appointment a) {
+    public AppointmentButton(Appointment app) {
         super("");
-        app = a;
-        name = app.getPatient().getName().getFullName();
-        type = app.getType().toString();
-        startTime = app.getStartTime();
-        endTime = app.getendTime();
+        String name = app.getPatient().getName().getFullName();
+        String type = app.getType().toString();
+        Time startTime = app.getStartTime();
+        Time endTime = app.getendTime();
         setText("<html>" + name + "<br>" + type + "<br>" + startTime + " - " + endTime + "</html>");
 
         //Button settings
