@@ -8,6 +8,7 @@ public class GraphicsController {
     }
 
     private static void setLookAndFeel(String lookAndFeel){
+
         try{
             if(lookAndFeel.equalsIgnoreCase("system")){
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -27,6 +28,7 @@ public class GraphicsController {
             e.printStackTrace();
             System.err.println("Can't find look and feel.");
         }
+
         //Can we do anything more useful here?
 
     }
