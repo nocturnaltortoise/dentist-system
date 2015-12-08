@@ -15,4 +15,9 @@ public class Address {
         this.postCode = postCode;
     }
 
+    @Override
+    public String toString() {
+        return "<html>" + houseNumber + " " + streetName + "<br>" + cityName + "<br>" + districtName + "<br>" + postCode + "</html>";
+    }
+
 }

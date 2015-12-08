@@ -1,12 +1,6 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.time.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CalendarView extends JFrame{
 
@@ -23,7 +17,7 @@ public class CalendarView extends JFrame{
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setTabPlacement(JTabbedPane.LEFT);
 
-        ImageIcon icon = createImageIcon("res/tab_icon.png");
+        ImageIcon icon = ResourceHandler.createImageIcon("res/tab_icon.png");
 
         LocalDate currentDate = LocalDate.now();
 
@@ -33,8 +27,8 @@ public class CalendarView extends JFrame{
         CalendarPanel hygienistTab = new CalendarPanel(currentDate);
         tabbedPane.addTab("Hygienist", icon, hygienistTab);
 
-        tabbedPane.setBackground(new Color(62,62,62));
-        tabbedPane.setForeground(new Color(163,163,163));
+        tabbedPane.setBackground(CustomColor.GREY);
+        tabbedPane.setForeground(CustomColor.LIGHT_GREY);
 
         //TODO: Get icons displayed above text in tabs.
 
@@ -49,17 +43,6 @@ public class CalendarView extends JFrame{
         contentPane.add(tabbedPane);
 
         setVisible(true);
-    }
-
-    private static ImageIcon createImageIcon(String path) {
-        try {
-            File filePath = new File(path);
-            BufferedImage image = ImageIO.read(filePath);
-            return new ImageIcon(image);
-        } catch (IOException e) {
-            System.err.println("Can't find a file at: " + path);
-            return null;
-        }
     }
 
 }

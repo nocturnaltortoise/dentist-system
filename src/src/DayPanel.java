@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class DayPanel extends JPanel {
@@ -23,12 +24,11 @@ public class DayPanel extends JPanel {
     }
 
     private void displayAppointments() {
-        for(Appointment app : appointments) {
+        for (Appointment app : appointments) {
             AppointmentButton b = new AppointmentButton(app);
             b.setAlignmentX(Component.CENTER_ALIGNMENT);
             add(b);
         }
-
     }
 
 }

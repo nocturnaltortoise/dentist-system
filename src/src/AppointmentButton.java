@@ -1,11 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class AppointmentButton extends JButton {
+public class AppointmentButton extends JButton implements ActionListener {
+
+    private Patient patient;
 
     public AppointmentButton(Appointment app) {
         super("");
-        String name = app.getPatient().getName().getFullName();
+        patient = app.getPatient();
+        String name = patient.getName().toString();
         String type = app.getType().toString();
         Time startTime = app.getStartTime();
         Time endTime = app.getendTime();
@@ -16,6 +21,12 @@ public class AppointmentButton extends JButton {
         //setContentAreaFilled(false);
         setBorderPainted(false);
         setFocusPainted(false);
+
+        addActionListener(this);
+    }
+
+    public void actionPerformed(ActionEvent event){
+        new ProfileView(patient);
     }
 
     /*

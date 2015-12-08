@@ -13,5 +13,5 @@ public class Name {
     public Title getTitle() { return title; }
     public String getFirstName() { return firstName; }
     public String getSurname() { return surname; }
-    public String getFullName() { return title + ". " + firstName + " " + surname; }
+    public String toString() { return title + ". " + firstName + " " + surname; }
 }
