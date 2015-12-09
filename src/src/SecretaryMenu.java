@@ -8,7 +8,6 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
     private JFrame parent;
 
     private static JMenuItem bookAppointment;
-    private static JMenuItem cancelAppointment;
     private static JMenuItem findPatientsAppointments;
 
     public SecretaryMenu(JFrame parent){
@@ -19,13 +18,10 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
         appointmentsMenu.setMnemonic(KeyEvent.VK_A);
 
         bookAppointment = new JMenuItem("Book Appointment");
-        cancelAppointment = new JMenuItem("Cancel Appointment");
         findPatientsAppointments = new JMenuItem("Find a Patient's Appointments");
         bookAppointment.addActionListener(this);
-        cancelAppointment.addActionListener(this);
         findPatientsAppointments.addActionListener(this);
         appointmentsMenu.add(bookAppointment);
-        appointmentsMenu.add(cancelAppointment);
         appointmentsMenu.add(findPatientsAppointments);
 
         add(appointmentsMenu);
@@ -36,12 +32,6 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
     public void actionPerformed(ActionEvent event){
         if(event.getSource() == bookAppointment){
             new SecretaryDialog(parent, DialogType.BOOK);
-        }else if(event.getSource() == cancelAppointment){
-            //popup dialog with search bar to search for appointment
-                //display list of search results
-                    //let the user select an appointment and hit an ok button
-                        //cancel that appointment
-            new SecretaryDialog(parent, DialogType.CANCEL);
         }else{
             //popup dialog with search bar for searching patients
                 //display search results of patients (probably patient buttons)

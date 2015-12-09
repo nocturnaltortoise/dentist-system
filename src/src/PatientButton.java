@@ -11,7 +11,7 @@ public class PatientButton extends JButton implements ActionListener{
         this.patient = patient;
         String name = patient.getName().toString();
         setText(name);
-//        setBounds(getX(), getY(), panel.getWidth(), panel.getHeight());
+        //setBounds(getX(), getY(), panel.getWidth(), panel.getHeight());
 
         //Button settings
         setOpaque(true);

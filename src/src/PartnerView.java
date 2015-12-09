@@ -12,7 +12,7 @@ public class PartnerView extends JFrame {
 
         Container contentPane = getContentPane();
         UIManager.put("TabbedPane.selected", new Color(93,93,93));
-        CalendarView partnerCalendar = new CalendarView();
+        CalendarView partnerCalendar = new CalendarView(false);
         contentPane.add(partnerCalendar);
         setJMenuBar(new PartnerMenu());
         partnerCalendar.addTabbedPane();

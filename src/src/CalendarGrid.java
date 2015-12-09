@@ -7,16 +7,18 @@ import java.util.Arrays;
 public class CalendarGrid extends JPanel {
 
     private final int DAYS_IN_WEEK = 7;
+    private boolean sec;
 
-    public CalendarGrid(int rows, int columns) {
+    public CalendarGrid(int rows, int columns, boolean sec) {
         super(new GridLayout(rows, columns));
+        this.sec = sec;
     }
 
     public void displayColumns(PartnerType p, LocalDate d){
         Date date = new Date(d);
         for(int j = 0; j < DAYS_IN_WEEK; j++){
             Date currentDate = new Date(date.getDate().plusDays(j));
-            DayPanel dayPanel = new DayPanel(currentDate, getAppointments(currentDate, p));
+            DayPanel dayPanel = new DayPanel(currentDate, getAppointments(currentDate, p), sec);
 
             add(dayPanel);
         }

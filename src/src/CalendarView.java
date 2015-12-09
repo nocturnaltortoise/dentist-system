@@ -6,7 +6,7 @@ public class CalendarView extends JPanel{
 
     private JTabbedPane tabbedPane = new JTabbedPane();
 
-    public CalendarView(){
+    public CalendarView(boolean sec){
         //This has to be done before a JTabbedPane is created
 
         tabbedPane.setTabPlacement(JTabbedPane.LEFT);
@@ -26,8 +26,8 @@ public class CalendarView extends JPanel{
 
         //TODO: Get icons displayed above text in tabs.
 
-        CalendarGrid calendarGridDentist = new CalendarGrid(1, 7);
-        CalendarGrid calendarGridHygienist = new CalendarGrid(1, 7);
+        CalendarGrid calendarGridDentist = new CalendarGrid(1, 7, sec);
+        CalendarGrid calendarGridHygienist = new CalendarGrid(1, 7, sec);
 
         calendarGridDentist.displayColumns(PartnerType.DENTIST, currentDate);
         calendarGridHygienist.displayColumns(PartnerType.HYGIENIST, currentDate);

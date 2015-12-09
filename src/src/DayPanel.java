@@ -8,7 +8,7 @@ public class DayPanel extends JPanel {
     private Date date;
     private ArrayList<Appointment> appointments;
 
-    public DayPanel(Date date, ArrayList<Appointment> appointments) {
+    public DayPanel(Date date, ArrayList<Appointment> appointments, boolean sec) {
         super();
         this.date = date;
         this.appointments = appointments;
@@ -20,14 +20,15 @@ public class DayPanel extends JPanel {
         contents.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(contents);
 
-        displayAppointments();
+        displayAppointments(sec);
     }
 
-    private void displayAppointments() {
+    private void displayAppointments(boolean sec) {
         for (Appointment app : appointments) {
-            AppointmentPanel b = new AppointmentPanel(app);
+            AppointmentPanel b = new AppointmentPanel(app, sec);
             b.setAlignmentX(Component.CENTER_ALIGNMENT);
             add(b);
+            add(Box.createRigidArea(new Dimension(0, 5)));
         }
     }
 
