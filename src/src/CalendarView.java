@@ -2,19 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.*;
 
-public class CalendarView extends JFrame{
+public class CalendarView extends JPanel{
+
+    private JTabbedPane tabbedPane = new JTabbedPane();
 
     public CalendarView(){
-        setSize(1280,720);
-        setTitle("Calendar");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        Container contentPane = getContentPane();
-
         //This has to be done before a JTabbedPane is created
-        UIManager.put("TabbedPane.selected", new Color(93,93,93));
-        JTabbedPane tabbedPane = new JTabbedPane();
+
         tabbedPane.setTabPlacement(JTabbedPane.LEFT);
 
         ImageIcon icon = ResourceHandler.createImageIcon("res/tab_icon.png");
@@ -40,9 +34,11 @@ public class CalendarView extends JFrame{
 
         dentistTab.add(calendarGridDentist, BorderLayout.CENTER);
         hygienistTab.add(calendarGridHygienist, BorderLayout.CENTER);
-        contentPane.add(tabbedPane);
+    }
 
-        setVisible(true);
+    public void addTabbedPane(){
+        JFrame window = (JFrame) SwingUtilities.windowForComponent(this);
+        window.add(tabbedPane);
     }
 
 }
