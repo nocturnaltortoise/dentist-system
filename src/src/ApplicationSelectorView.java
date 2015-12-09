@@ -33,6 +33,7 @@ public class ApplicationSelectorView extends JFrame implements ActionListener{
             this.dispose();
         }else{
             new PartnerView();
+            this.dispose();
         }
     }
 }
