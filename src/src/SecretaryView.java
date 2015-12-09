@@ -14,7 +14,7 @@ public class SecretaryView extends JFrame{
         UIManager.put("TabbedPane.selected", new Color(93,93,93));
         CalendarView secretaryCalendar = new CalendarView();
         contentPane.add(secretaryCalendar);
-        setJMenuBar(new SecretaryMenu());
+        setJMenuBar(new SecretaryMenu(this));
 //        contentPane.add(new SecretaryMenu(),BorderLayout.NORTH);
         secretaryCalendar.addTabbedPane();
 

@@ -5,11 +5,15 @@ import java.awt.event.KeyEvent;
 
 public class SecretaryMenu extends JMenuBar implements ActionListener {
 
+    private JFrame parent;
+
     private static JMenuItem bookAppointment;
     private static JMenuItem cancelAppointment;
     private static JMenuItem findPatientsAppointments;
 
-    public SecretaryMenu(){
+    public SecretaryMenu(JFrame parent){
+
+        this.parent = parent;
 
         JMenu appointmentsMenu = new JMenu("Appointments");
         appointmentsMenu.setMnemonic(KeyEvent.VK_A);
@@ -31,17 +35,18 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event){
         if(event.getSource() == bookAppointment){
-            //popup dialog asking for appointment details
-                //add appointment with those details
+            new SecretaryDialog(parent, DialogType.BOOK);
         }else if(event.getSource() == cancelAppointment){
             //popup dialog with search bar to search for appointment
                 //display list of search results
                     //let the user select an appointment and hit an ok button
                         //cancel that appointment
+            new SecretaryDialog(parent, DialogType.CANCEL);
         }else{
             //popup dialog with search bar for searching patients
                 //display search results of patients (probably patient buttons)
                     //let the user click on each patient to display a profile
+            new SecretaryDialog(parent, DialogType.SEARCH);
         }
     }
 
