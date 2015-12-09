@@ -17,6 +17,9 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
         bookAppointment = new JMenuItem("Book Appointment");
         cancelAppointment = new JMenuItem("Cancel Appointment");
         findPatientsAppointments = new JMenuItem("Find a Patient's Appointments");
+        bookAppointment.addActionListener(this);
+        cancelAppointment.addActionListener(this);
+        findPatientsAppointments.addActionListener(this);
         appointmentsMenu.add(bookAppointment);
         appointmentsMenu.add(cancelAppointment);
         appointmentsMenu.add(findPatientsAppointments);

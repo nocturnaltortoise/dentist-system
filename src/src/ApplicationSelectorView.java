@@ -31,6 +31,8 @@ public class ApplicationSelectorView extends JFrame implements ActionListener{
         if(event.getSource() == startSecretaryViewButton){
             new SecretaryView();
             this.dispose();
+        }else{
+            new PartnerView();
         }
     }
 }

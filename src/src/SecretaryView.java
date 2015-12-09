@@ -20,7 +20,5 @@ public class SecretaryView extends JFrame{
 
     }
 
-
-    //TODO: add Menus
     //TODO: add similar view for partners
 }
