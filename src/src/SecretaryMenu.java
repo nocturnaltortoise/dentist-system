@@ -31,12 +31,12 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event){
         if(event.getSource() == bookAppointment){
-            new SecretaryDialog(parent, DialogType.BOOK);
+            new CreateDialog(parent);
         }else{
             //popup dialog with search bar for searching patients
                 //display search results of patients (probably patient buttons)
                     //let the user click on each patient to display a profile
-            new SecretaryDialog(parent, DialogType.SEARCH);
+            new SearchDialog(parent);
         }
     }
 
