@@ -3,7 +3,7 @@ import javax.swing.*;
 public class GraphicsController {
 
     public static void main(String[] args){
-        setLookAndFeel("cross platform");
+//        setLookAndFeel("cross platform");
         new ApplicationSelectorView(500,500);
     }
 

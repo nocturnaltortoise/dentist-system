@@ -25,7 +25,7 @@ public class DayPanel extends JPanel {
 
     private void displayAppointments() {
         for (Appointment app : appointments) {
-            AppointmentButton b = new AppointmentButton(app);
+            AppointmentPanel b = new AppointmentPanel(app);
             b.setAlignmentX(Component.CENTER_ALIGNMENT);
             add(b);
         }
