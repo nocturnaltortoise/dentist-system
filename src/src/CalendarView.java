@@ -38,7 +38,7 @@ public class CalendarView extends JPanel{
 
     public void addTabbedPane(){
         JFrame window = (JFrame) SwingUtilities.windowForComponent(this);
-        window.add(tabbedPane);
+        window.add(tabbedPane, BorderLayout.CENTER);
     }
 
 }
