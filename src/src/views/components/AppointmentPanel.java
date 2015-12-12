@@ -33,6 +33,10 @@ public class AppointmentPanel extends JPanel{
             CancelButton cancelButton = new CancelButton(patient.getName().toString());
             cancelButton.setAlignmentX(CENTER_ALIGNMENT);
             add(cancelButton);
+        }else {
+            CompleteButton completeButton = new CompleteButton();
+            completeButton.setAlignmentX(CENTER_ALIGNMENT);
+            add(completeButton);
         }
 
     }

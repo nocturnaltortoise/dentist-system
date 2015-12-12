@@ -19,8 +19,8 @@ public class BookPanel extends JPanel {
 
         JLabel sTimeL = new JLabel("Start Time: ", SwingConstants.LEFT);
         JTextArea sTimeA = new InputArea("", TEXTBOX_SIZE);
-        JLabel eTimeL = new JLabel("End Time: ", SwingConstants.LEFT);
-        JTextArea eTimeA = new InputArea("", TEXTBOX_SIZE);
+        //JLabel eTimeL = new JLabel("End Time: ", SwingConstants.LEFT);
+        //JTextArea eTimeA = new InputArea("", TEXTBOX_SIZE);
         JLabel patientL = new JLabel("Name: ", SwingConstants.LEFT);
         JTextArea patientA = new InputArea("", TEXTBOX_SIZE);
 
@@ -35,14 +35,16 @@ public class BookPanel extends JPanel {
 
         JLabel dateL = new JLabel("Date of Appointment: ", SwingConstants.LEFT);
         JTextArea dateA = new InputArea("", TEXTBOX_SIZE);
+        //Appointment times are fixed by type, so no need to specify end time!
 
+        //TODO: Upon submission, overlaps with other appointments and 9:00 - 17:00 need to be checked
         JButton submit = new JButton("Submit");
         submit.setAlignmentX(LEFT_ALIGNMENT);
 
         add(sTimeL);
         add(sTimeA);
-        add(eTimeL);
-        add(eTimeA);
+        //add(eTimeL);
+        //add(eTimeA);
         add(patientL);
         add(patientA);
         add(partnerL);
