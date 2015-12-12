@@ -1,3 +1,5 @@
+import views.ApplicationSelectorView;
+
 import javax.swing.*;
 
 public class GraphicsController {

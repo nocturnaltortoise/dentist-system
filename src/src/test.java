@@ -18,14 +18,14 @@ public class test
             Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
                        
-            ResultSet res = stmt.executeQuery("SELECT Patient.PatientID as 'ID', Patient.Title, " + 
-            	  "Patient.First as 'First Name', Patient.Last as 'Surname', " + 
-                "Patient.Dob as 'Date of Birth', Patient.Tel as 'Telephone Number', " + 
-                "Address.HouseNum as 'House Number', Address.Street, Address.District, Address.City, " + 
-                "Address.PostCode, Patient.PlanName as 'Plan Name', " + 
+            ResultSet res = stmt.executeQuery("SELECT models.Patient.PatientID as 'ID', models.Patient.models.Title, " +
+            	  "models.Patient.First as 'First models.Name', models.Patient.Last as 'Surname', " +
+                "models.Patient.Dob as 'models.Date of Birth', models.Patient.Tel as 'Telephone Number', " +
+                "models.Address.HouseNum as 'House Number', models.Address.Street, models.Address.District, models.Address.City, " +
+                "models.Address.PostCode, models.Patient.PlanName as 'Plan models.Name', " +
                 "Plan.MonthlyP as 'Monthly Payment', Plan.Level as 'Service Level' FROM " + 
-                "Patient INNER JOIN Address ON Patient.AddressID = Address.AddressID " + 
-                "LEFT JOIN Plan ON Patient.PlanName = Plan.Name");
+                "models.Patient INNER JOIN models.Address ON models.Patient.AddressID = models.Address.AddressID " +
+                "LEFT JOIN Plan ON models.Patient.PlanName = Plan.models.Name");
             ResultSetMetaData rsmd = res.getMetaData();
             
             while (res.next())
