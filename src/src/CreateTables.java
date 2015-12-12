@@ -16,7 +16,7 @@ public class CreateTables
                         Conn = DriverManager.getConnection(DB);
                         stmt = Conn.createStatement(); 
                         
-                        String sql = "CREATE TABLE models.Address " +
+                        String sql = "CREATE TABLE Address " +
                         	"(AddressID INTEGER AUTO_INCREMENT, " +
                         	" HouseNum INTEGER NOT NULL, " +
                         	" Street VARCHAR(50) NOT NULL, " +
@@ -29,17 +29,17 @@ public class CreateTables
                         
                         
                         sql = "CREATE TABLE Plan " +
-                        	"(models.Name VARCHAR(30) UNIQUE NOT NULL, " +
+                        	"(Name VARCHAR(30) UNIQUE NOT NULL, " +
                             " MonthlyP INTEGER NOT NULL, " +
                             " Level VARCHAR(100) NOT NULL, " +
-                            " PRIMARY KEY ( models.Name ))";
+                            " PRIMARY KEY ( Name ))";
                                 
                         stmt.executeUpdate(sql);
                      
                         
-                        sql = "CREATE TABLE models.Patient " +
+                        sql = "CREATE TABLE Patient " +
                         	"(PatientID INTEGER AUTO_INCREMENT, " +
-                            " models.Title VARCHAR(10), " +
+                            " Title VARCHAR(10), " +
                             " First VARCHAR(50) NOT NULL, " +
                             " Last VARCHAR(50) NOT NULL, " +
                             " Dob DATE, " +
@@ -47,29 +47,29 @@ public class CreateTables
                             " AddressID INTEGER NOT NULL, " +
                             " PlanName VARCHAR(30), " +
                             " PRIMARY KEY ( PatientID ), " +
-                            " FOREIGN KEY (AddressID) REFERENCES models.Address(AddressID), " +
-                            " FOREIGN KEY (PlanName) REFERENCES Plan(models.Name))";
+                            " FOREIGN KEY (AddressID) REFERENCES Address(AddressID), " +
+                            " FOREIGN KEY (PlanName) REFERENCES Plan(Name))";
                              
                         stmt.executeUpdate(sql);
                         
                         
                         sql = "CREATE TABLE TreatmentType " +
-                            "(models.Name VARCHAR(30) UNIQUE NOT NULL, " +
+                            "(Name VARCHAR(30) UNIQUE NOT NULL, " +
                             " Cost INTEGER NOT NULL, " +
-                            " PRIMARY KEY ( models.Name ))";
+                            " PRIMARY KEY ( Name ))";
                                     
                         stmt.executeUpdate(sql);
                         
                         
-                        sql = "CREATE TABLE models.Appointment " +
+                        sql = "CREATE TABLE Appointment " +
                             "(AppointmentID INTEGER AUTO_INCREMENT, " +
-                            " models.Date DATE NOT NULL, " +
+                            " Date DATE NOT NULL, " +
                             " StartTime TIME NOT NULL, " +
                             " EndTime TIME NOT NULL, " +
-                            " models.Partner VARCHAR(10) NOT NULL, " +
+                            " Partner VARCHAR(10) NOT NULL, " +
                             " PatientID INTEGER NOT NULL, " +
                             " PRIMARY KEY ( AppointmentID ), " +
-                            " FOREIGN KEY (PatientID) REFERENCES models.Patient(PatientID))";
+                            " FOREIGN KEY (PatientID) REFERENCES Patient(PatientID))";
                         
                         stmt.executeUpdate(sql);
                         
@@ -78,8 +78,8 @@ public class CreateTables
                             "(AppointmentID INTEGER NOT NULL, " +
                             " TreatmentName VARCHAR(30) NOT NULL, " +
                             " PRIMARY KEY ( AppointmentID, TreatmentName ), " +
-                            " FOREIGN KEY (AppointmentID) REFERENCES models.Appointment(AppointmentID), " +
-                            " FOREIGN KEY (TreatmentName) REFERENCES TreatmentType(models.Name))";
+                            " FOREIGN KEY (AppointmentID) REFERENCES Appointment(AppointmentID), " +
+                            " FOREIGN KEY (TreatmentName) REFERENCES TreatmentType(Name))";
                             
                         stmt.executeUpdate(sql);
                 }

@@ -33,23 +33,23 @@ public class addRecords
                                 "VALUES ('Dental Repair Plan', 36, '2 check-ups, 2 hygiene visits and up to 2 repairs per year')";
                         stmt.executeUpdate(sql);
                         
-                        sql = "INSERT INTO models.Address " +
+                        sql = "INSERT INTO Address " +
                                 "VALUES (null, 51, 'Wellington Street', null, 'Sheffield', 'S1 4HL')";
                         stmt.executeUpdate(sql);
                         
-                        sql = "INSERT INTO models.Address " +
+                        sql = "INSERT INTO Address " +
                                 "VALUES (null, 2, 'Untitled Street', 'Meadowhall', 'Sheffield', 'S9 3RE')";
                         stmt.executeUpdate(sql);
                         
-                        sql = "INSERT INTO models.Patient " +
+                        sql = "INSERT INTO Patient " +
                            "VALUES (null, 'Mrs', 'Gloria', 'Ruth', 5/5/1990, '07123456789', 1, 'Maintenance Plan')";
                         stmt.executeUpdate(sql);
                         
-                        sql = "ALTER TABLE models.Patient " +
+                        sql = "ALTER TABLE Patient " +
            			 		        "MODIFY COLUMN PlanName VARCHAR(30)";
            			 	      stmt.executeUpdate(sql);
                         
-                        sql = "INSERT INTO models.Patient " +
+                        sql = "INSERT INTO Patient " +
                            "VALUES (null, 'Mr', 'Mojo', 'Risin', 12/8/1943, '07987654321', 2, null)";
                         stmt.executeUpdate(sql);
                        
