@@ -3,10 +3,10 @@ package views.components;
 import javax.swing.*;
 import java.awt.*;
 
-public class CreateDialog extends JDialog {
+public class BookDialog extends JDialog {
 
-    public CreateDialog(JFrame parent) {
-        super(parent, "Book models.Appointment", true);
+    public BookDialog(JFrame parent) {
+        super(parent, "Book Appointment", true);
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);

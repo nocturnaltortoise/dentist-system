@@ -7,15 +7,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by George Baron on 09/12/2015.
- */
 public class SearchDialog extends JDialog implements ActionListener {
 
     private SearchPanel dpanel;
 
     public SearchDialog(JFrame parent) {
-        super(parent, "Search for models.Appointment", true);
+        super(parent, "Search for Appointment", true);
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);

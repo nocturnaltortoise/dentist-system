@@ -33,7 +33,7 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event){
         if(event.getSource() == bookAppointment){
-            new CreateDialog(parent);
+            new BookDialog(parent);
         }else{
             //popup dialog with search bar for searching patients
                 //display search results of patients (probably patient buttons)
