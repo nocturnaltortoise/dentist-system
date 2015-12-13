@@ -4,7 +4,6 @@
 ##Frontend
 - orient calendar around a week rather than the current date
 - let the user switch between weeks on the calendar
-- add patients menu and dialog
 - subscribe/unsubscribe to healthcare plan button on patient profile
 - list treatments on patient profile
 - show total cost owed on patient profile
