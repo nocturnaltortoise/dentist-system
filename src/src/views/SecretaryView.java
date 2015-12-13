@@ -3,6 +3,7 @@ package views;
 import views.components.SecretaryMenu;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,9 @@ import java.time.LocalDate;
 public class SecretaryView extends JFrame implements ActionListener{
 
     private JButton advanceWeekButton;
+    private JButton previousWeekButton;
     private CalendarView secretaryCalendar;
+    private JPanel buttonPanel;
 
     public SecretaryView(){
         setSize(1280,720);
@@ -27,10 +30,18 @@ public class SecretaryView extends JFrame implements ActionListener{
         contentPane.add(secretaryCalendar);
         setJMenuBar(new SecretaryMenu(this));
 
+        buttonPanel = new JPanel();
         advanceWeekButton = new JButton(">");
         advanceWeekButton.addActionListener(this);
+        previousWeekButton = new JButton("<");
+        previousWeekButton.addActionListener(this);
+        buttonPanel.add(previousWeekButton);
+        buttonPanel.add(advanceWeekButton);
+        add(buttonPanel, BorderLayout.PAGE_START);
+
         secretaryCalendar.addTabbedPane();
-        add(advanceWeekButton,BorderLayout.PAGE_START);
+//        add(advanceWeekButton,BorderLayout.PAGE_START);
+//        add(previousWeekButton,)
     }
 
     private LocalDate getMonday(LocalDate currentDate){
@@ -46,12 +57,25 @@ public class SecretaryView extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent event){
 
         if(event.getSource() == advanceWeekButton){
-            this.remove(secretaryCalendar);
-            System.out.println("Should have done something");
-//            secretaryCalendar = new CalendarView(true,secretaryCalendar.getStartOfWeek().plusDays(7));
-//            this.add(secretaryCalendar);
+            secretaryCalendar.setStartOfWeek(secretaryCalendar.getStartOfWeek().plusDays(7));
+            rebuildCalendar();
+        }else{
+            secretaryCalendar.setStartOfWeek(secretaryCalendar.getStartOfWeek().minusDays(7));
+            rebuildCalendar();
         }
 
+    }
+
+    private void rebuildCalendar(){
+        this.getContentPane().removeAll();
+        secretaryCalendar = new CalendarView(true,secretaryCalendar.getStartOfWeek());
+        this.getContentPane().add(secretaryCalendar);
+        secretaryCalendar.addTabbedPane();
+        buttonPanel.add(previousWeekButton);
+        buttonPanel.add(advanceWeekButton);
+        add(buttonPanel, BorderLayout.PAGE_START);
+        revalidate();
+        repaint();
     }
 
 }

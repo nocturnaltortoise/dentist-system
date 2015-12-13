@@ -20,6 +20,9 @@ public class CalendarView extends JPanel{
     public LocalDate getStartOfWeek(){
         return this.startOfWeek;
     }
+    public void setStartOfWeek(LocalDate startOfWeek){
+        this.startOfWeek = startOfWeek;
+    }
 
     public CalendarView(boolean sec, LocalDate startOfWeek){
         //This has to be done before a JTabbedPane is created
