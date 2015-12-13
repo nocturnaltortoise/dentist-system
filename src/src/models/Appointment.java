@@ -23,11 +23,14 @@ public class Appointment {
     }
 
     public Time getStartTime() { return startTime; }
-    public Time getendTime() { return endTime; }
+    public Time getEndTime() { return endTime; }
     public Patient getPatient() { return patient; }
     public Partner getPartner() { return partner; }
     public AppointmentType getType() { return type; }
     public Date getDate() { return date; }
     public Time getLength() { return length; }
+    public String toString(){
+        return this.date + " " + this.startTime + " - " + this.endTime + " Patient: " + this.patient.toString() + " With: " + this.partner.getName() + " Type: " + this.type;
+    }
 
 }

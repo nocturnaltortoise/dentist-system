@@ -25,7 +25,7 @@ public class ResultPanel extends JPanel {
         JLabel infoLabel = new JLabel(
                 p.getName()
                 + " | " + app.getType()
-                + " | " + app.getStartTime() + " - " + app.getendTime()
+                + " | " + app.getStartTime() + " - " + app.getEndTime()
                 + " | " + app.getPartner().getName()
                 + " | " + app.getDate());
 

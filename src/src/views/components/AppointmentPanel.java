@@ -22,7 +22,7 @@ public class AppointmentPanel extends JPanel{
 
         String type = app.getType().toString();
         Time startTime = app.getStartTime();
-        Time endTime = app.getendTime();
+        Time endTime = app.getEndTime();
         JLabel appointmentInfo = new JLabel("<html><center>" + type + "<br>" + startTime + " - " + endTime + "</center></html>", JLabel.CENTER);
         appointmentInfo.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -34,7 +34,7 @@ public class AppointmentPanel extends JPanel{
             cancelButton.setAlignmentX(CENTER_ALIGNMENT);
             add(cancelButton);
         }else {
-            CompleteButton completeButton = new CompleteButton();
+            CompleteButton completeButton = new CompleteButton(app);
             completeButton.setAlignmentX(CENTER_ALIGNMENT);
             add(completeButton);
         }
