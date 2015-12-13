@@ -16,9 +16,9 @@ public class TestAppointments {
     private static Address add2 = new Address(4, "Test Street 2", "City 2", "District 2", "P0S TC02");
     private static Address add3 = new Address(4, "Test Street 3", "City 3", "District 3", "P0S TC03");
 
-    private static Patient pat1 = new Patient(Title.MR, "John", "Doe", dob1, phone1, add1);
-    private static Patient pat2 = new Patient(Title.MISS, "Jane", "Doe", dob2, phone2, add2);
-    private static Patient pat3 = new Patient(Title.SWING_MASTER, "George", "Baron", dob3, phone3, add3);
+    private static Patient pat1 = new Patient(Title.MR, "John", "Doe", dob1, phone1, add1, 0);
+    private static Patient pat2 = new Patient(Title.MISS, "Jane", "Doe", dob2, phone2, add2, 1);
+    private static Patient pat3 = new Patient(Title.SWING_MASTER, "George", "Baron", dob3, phone3, add3, 2);
 
     private static Partner dentist = new Partner(Title.DR, "Jason", "Bourne", PartnerType.DENTIST);
     private static Partner hygienist = new Partner(Title.DR, "Charlotte", "Webb", PartnerType.HYGIENIST);

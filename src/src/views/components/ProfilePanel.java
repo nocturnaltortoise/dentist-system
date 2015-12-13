@@ -1,10 +1,14 @@
 package views.components;
 
+import models.Name;
 import models.Patient;
+import models.Appointment;
+import models.Appointments;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ProfilePanel extends JPanel {
 
@@ -24,6 +28,7 @@ public class ProfilePanel extends JPanel {
         JLabel dobLabel = setLabel(p.getDateOfBirth().toString(), CustomColor.LIGHT_GREY, 30);
         JLabel pLabel = setLabel(p.getPhone(), Color.WHITE, 24);
         JLabel addLabel = setLabel(p.getAddress().toString(), CustomColor.LIGHT_GREY, 24, false);
+        JPanel appointments = createAppointmentList(p.getId());
 
         add(image);
         add(nameLabel);
@@ -33,7 +38,17 @@ public class ProfilePanel extends JPanel {
         add(pLabel);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(addLabel);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(appointments);
 
+    }
+
+    private JPanel createAppointmentList(int id) {
+        ArrayList<Appointment> aList = Appointments.getAll(id);
+        JPanel temp = new JPanel();
+        temp.setBackground(CustomColor.DARK_GREY);
+        aList.forEach(app -> temp.add(new ProfileAppointmentPanel(app)));
+        return temp;
     }
 
     private JLabel setLabel(String s, Color c, int size) { return setLabel(s, c, size, true); }
