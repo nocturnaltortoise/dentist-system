@@ -38,6 +38,16 @@ public class ConfirmVisitPanel extends JPanel {
         add(costInput);
     }
 
+    public boolean isEmpty() { return costInput.getText().equals(""); }
+    public boolean isInt() {
+        try {
+            int num = Integer.parseInt(costInput.getText());
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
+    }
+
     public Treatment getTreatment(){
         return new Treatment((AppointmentType)treatmentType.getSelectedItem(), Double.parseDouble(costInput.getText()), this.app);
     }
