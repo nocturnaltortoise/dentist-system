@@ -24,4 +24,5 @@ public class Patient {
     public Date getDateOfBirth() { return dateOfBirth; }
     public String getPhone() { return phone; }
     public Address getAddress() { return address; }
+    public String toString(){ return this.name + this.dateOfBirth.toString() + this.phone + this.address.toString(); }
 }

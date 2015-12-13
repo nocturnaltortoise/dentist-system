@@ -1,6 +1,8 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Date extends DateTime {
 
@@ -10,7 +12,12 @@ public class Date extends DateTime {
         this.date = date;
     }
     public Date(String date) {
-        this.date = parseDate(date);
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
+            this.date = LocalDate.parse(date, formatter);
+        }catch(DateTimeParseException e){
+            e.printStackTrace();
+        }
     }
     public LocalDate getDate() { return date; }
 

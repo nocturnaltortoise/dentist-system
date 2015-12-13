@@ -11,6 +11,7 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
 
     private static JMenuItem bookAppointment;
     private static JMenuItem findPatientsAppointments;
+    private static JMenuItem addPatient;
 
     public SecretaryMenu(JFrame parent){
 
@@ -26,7 +27,15 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
         appointmentsMenu.add(bookAppointment);
         appointmentsMenu.add(findPatientsAppointments);
 
+        JMenu patientsMenu = new JMenu("Patients");
+        patientsMenu.setMnemonic(KeyEvent.VK_P);
+
+        addPatient = new JMenuItem("Add New Patient");
+        addPatient.addActionListener(this);
+        patientsMenu.add(addPatient);
+
         add(appointmentsMenu);
+        add(patientsMenu);
 
     }
 
@@ -34,11 +43,13 @@ public class SecretaryMenu extends JMenuBar implements ActionListener {
     public void actionPerformed(ActionEvent event){
         if(event.getSource() == bookAppointment){
             new BookDialog(parent);
-        }else{
+        }else if(event.getSource() == findPatientsAppointments){
             //popup dialog with search bar for searching patients
                 //display search results of patients (probably patient buttons)
                     //let the user click on each patient to display a profile
             new SearchDialog(parent);
+        }else{
+            new PatientDialog(parent);
         }
     }
 
