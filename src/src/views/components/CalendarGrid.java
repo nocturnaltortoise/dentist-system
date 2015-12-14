@@ -34,7 +34,8 @@ public class CalendarGrid extends JPanel {
     private ArrayList<Appointment> getAppointments(Date day, PartnerType p) {
         //Assumes already sorted (done in SQL!)
         // TODO: Write SQL nonsense instead of using test data
-        ArrayList<Appointment> appointments = new ArrayList(Arrays.asList(TestAppointments.appointments));
+        //ArrayList<Appointment> appointments = new ArrayList(Arrays.asList(TestAppointments.appointments));
+        ArrayList<Appointment> appointments = Appointments.getAll();
         ArrayList<Appointment> temp = new ArrayList<>();
         for(Appointment a : appointments){
             if(a.getDate().equals(day) && p.equals(a.getPartner().getPartnerType())){
