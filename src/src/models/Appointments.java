@@ -154,7 +154,7 @@ public class Appointments  {
             res = stmt.executeQuery("SELECT Treatment.TreatmentName, Appointment.StartTime, " +
                     "Appointment.EndTime, Appointment.Partner, Appointment.Date FROM " +
             		"Appointment INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID" +
-            		"WHERE Appointment.PatientID = " + patientId);
+            		" WHERE Appointment.PatientID = " + patientId);
             while (res.next())
             {
             	

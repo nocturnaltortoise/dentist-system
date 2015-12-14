@@ -2,6 +2,7 @@ package views.components;
 
 import models.Appointment;
 import models.Appointments;
+import views.SecretaryView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -31,6 +32,8 @@ public class CancelButton extends JButton implements ActionListener {
         int answer = JOptionPane.showConfirmDialog(this, "Cancel appointment for " + name + "?", "Cancel", button);
         if(answer == JOptionPane.YES_OPTION) {
             Appointments.delete(app);
+            SecretaryView currentView = (SecretaryView)SwingUtilities.getRoot(this);
+            currentView.rebuildCalendar();
         }
     }
 

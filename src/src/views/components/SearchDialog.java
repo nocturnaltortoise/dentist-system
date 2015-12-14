@@ -2,7 +2,6 @@ package views.components;
 
 import models.Appointment;
 import models.Appointments;
-import models.TestAppointments;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +34,6 @@ public class SearchDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent event){
         if(dpanel.getInput().getText() != "") {
             if(resultPanel != null){ dpanel.remove(resultPanel); }
-            System.out.println("Here");
             int patientIDQuery = Integer.valueOf(dpanel.getInput().getText());
             ArrayList<Appointment> results = Appointments.getAll(patientIDQuery);
             resultPanel = new ResultPanel(results);
