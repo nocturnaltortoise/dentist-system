@@ -206,7 +206,7 @@ public class Appointments  {
     public static void add(Appointment app){
     	String date = app.getDate().toString();
     	String start = app.getStartTime().toString();
-    	String end = app.getendTime().toString();
+    	String end = app.getEndTime().toString();
     	String partner = app.getPartner().getPartnerType().toString();
     	int patientId = app.getPatient().getId();
     	

@@ -1,7 +1,7 @@
 # dentist-system
 
 # TO DO:
-##Frontend
+## Frontend
 - subscribe/unsubscribe to healthcare plan button on patient profile
 - list treatments on patient profile - how are treatments linked to the patient - how do we get a list of treatments from each patient?
 - show total cost owed on patient profile

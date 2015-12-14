@@ -16,7 +16,7 @@ public class SearchPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
 
-        JLabel searchLabel = new JLabel("Enter a patient's name:", SwingConstants.LEFT);
+        JLabel searchLabel = new JLabel("Enter a patient's id:", SwingConstants.LEFT);
         searchLabel.setAlignmentX(CENTER_ALIGNMENT);
         searchArea = new InputArea("", 300);
         searchArea.setAlignmentX(CENTER_ALIGNMENT);
