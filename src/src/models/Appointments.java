@@ -210,7 +210,7 @@ public class Appointments  {
     	String end = app.getEndTime().toString();
     	String partner = app.getPartner().getPartnerType().toString();
     	int patientId = app.getPatient().getId();
-    	
+    	String type = app.getType().toString();
     	
     	Connection Conn = null;
         Statement stmt = null;
@@ -228,6 +228,18 @@ public class Appointments  {
             stmt = Conn.createStatement();
             String sql = "INSERT INTO Appointment " +
             			"VALUES (null, '" + date + "', '" + start + "', '"+ end + "', '" + partner + "', " + patientId + ")";
+            stmt.executeUpdate(sql);
+            
+            int appId = 0;
+            ResultSet res = stmt.executeQuery("SELECT * FROM Appointment " +
+            			"ORDER BY AppointmentID DESC LIMIT 1");
+            while(res.next())
+            {
+            	appId = res.getInt(1);
+            }
+            
+            sql = "INSERT INTO Treatment " +
+        			"VALUES (" + appId + ", '" + type +"')";
             stmt.executeUpdate(sql);
         }
         catch (SQLException e)
@@ -265,8 +277,29 @@ public class Appointments  {
         {
         	Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
-            String sql = "INSERT INTO Appointment " +
-            			"VALUES (null, '" + date + "', '" + start + "', '"+ end + "', '" + partner + "', null)";
+            
+            String sql = "SET FOREIGN_KEY_CHECKS = 0";
+            stmt.executeUpdate(sql);
+            
+            sql = "DELETE FROM Appointment" +
+            			" WHERE Date = " + date + " AND StartTime = " + time +
+            			" AND Partner = '" + partner +"'";
+            stmt.executeUpdate(sql);
+            
+            int appId = 0;
+            ResultSet res = stmt.executeQuery("SELECT * FROM Appointment " +
+            			" WHERE Date = " + date + " AND StartTime = " + time +
+            			" AND Partner = '" + partner +"'");
+            while(res.next())
+            {
+            	appId = res.getInt(1);
+            }
+            
+            sql = "DELETE FROM Treatment" +
+        			" WHERE AppointmentID = " + appId;
+            stmt.executeUpdate(sql);
+            
+            sql = "SET FOREIGN_KEY_CHECKS = 1";
             stmt.executeUpdate(sql);
         }
         catch (SQLException e)
