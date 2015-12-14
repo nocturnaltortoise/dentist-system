@@ -66,7 +66,7 @@ public class SecretaryView extends JFrame implements ActionListener{
 
     }
 
-    private void rebuildCalendar(){
+    public void rebuildCalendar(){
         this.getContentPane().removeAll();
         secretaryCalendar = new CalendarView(true,secretaryCalendar.getStartOfWeek());
         this.getContentPane().add(secretaryCalendar);

@@ -60,7 +60,7 @@ public class PartnerView extends JFrame implements ActionListener {
 
     }
 
-    private void rebuildCalendar(){
+    public void rebuildCalendar(){
         this.getContentPane().removeAll();
         partnerCalendar = new CalendarView(false,partnerCalendar.getStartOfWeek());
         this.getContentPane().add(partnerCalendar);

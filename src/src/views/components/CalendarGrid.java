@@ -11,7 +11,6 @@ public class CalendarGrid extends JPanel {
 
     private final int DAYS_IN_WEEK = 7;
     private boolean sec;
-    private ArrayList<Appointment> appointments = Appointments.getAll();
 
     public CalendarGrid(int rows, int columns, boolean sec) {
         super(new GridLayout(rows, columns));
@@ -32,7 +31,7 @@ public class CalendarGrid extends JPanel {
         //Assumes already sorted (done in SQL!)
         // TODO: Write SQL nonsense instead of using test data
         //ArrayList<Appointment> appointments = new ArrayList(Arrays.asList(TestAppointments.appointments));
-
+        ArrayList<Appointment> appointments = Appointments.getAll();
         ArrayList<Appointment> temp = new ArrayList<>();
         for(Appointment a : appointments){
             if(a.getDate().equals(day) && p.equals(a.getPartner().getPartnerType())){

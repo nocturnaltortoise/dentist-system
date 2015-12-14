@@ -1,6 +1,7 @@
 package views.components;
 
 import models.*;
+import views.SecretaryView;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -101,8 +102,8 @@ public class BookPanel extends JPanel implements ActionListener {
             Appointment newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate);
             System.out.println(newAppointment.toString());
             Appointments.add(newAppointment);
-            SwingUtilities.getRoot(this).revalidate();
-            SwingUtilities.getRoot(this).repaint();
+            SecretaryView currentView = (SecretaryView)SwingUtilities.getRoot(this).getParent();
+            currentView.rebuildCalendar();
             parent.dispose();
         }
     }
