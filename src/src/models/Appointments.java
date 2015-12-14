@@ -227,7 +227,7 @@ public class Appointments  {
         	Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
             String sql = "INSERT INTO Appointment " +
-            			"VALUES (null, " + date + ", " + start + ", "+ end + ", " + partner + ", " + patientId + ")";
+            			"VALUES (null, '" + date + "', '" + start + "', '"+ end + "', '" + partner + "', " + patientId + ")";
             stmt.executeUpdate(sql);
         }
         catch (SQLException e)
@@ -266,7 +266,7 @@ public class Appointments  {
         	Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
             String sql = "INSERT INTO Appointment " +
-            			"VALUES (null, " + date + ", " + start + ", "+ end + ", " + partner + ", null)";
+            			"VALUES (null, '" + date + "', '" + start + "', '"+ end + "', '" + partner + "', null)";
             stmt.executeUpdate(sql);
         }
         catch (SQLException e)
