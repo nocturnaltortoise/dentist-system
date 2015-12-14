@@ -21,10 +21,12 @@ public class BookPanel extends JPanel implements ActionListener {
     private JComboBox typeA;
     private JTextArea dateA;
     private JButton submit;
+    private BookDialog parent;
 
-    public BookPanel() {
+    public BookPanel(BookDialog parent) {
         super();
 
+        this.parent = parent;
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
 
@@ -60,6 +62,7 @@ public class BookPanel extends JPanel implements ActionListener {
         //TODO: Upon submission, overlaps with other appointments and 9:00 - 17:00 need to be checked
         submit = new JButton("Submit");
         submit.setAlignmentX(LEFT_ALIGNMENT);
+        submit.addActionListener(this);
 
 //        add(titleLabel);
 //        add(titleInput);
@@ -87,16 +90,20 @@ public class BookPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent event){
 
         if(event.getSource() == submit){
+            System.out.println("Clicked");
             Time startTime = new Time(sTimeA.getText());
-            long appLength = AppointmentType.getLength((AppointmentType)typeA.getSelectedItem());
+            long appLength = AppointmentType.getLength(typeA.getSelectedItem().toString());
             Time endTime = startTime.plusMinutes(appLength);
             Patient appPatient = Patients.getAll(Integer.valueOf(idInput.getText()));
-            Partner appPartner = Partners.getPartnerFromType((PartnerType)partnerA.getSelectedItem());
-            AppointmentType appType = (AppointmentType)typeA.getSelectedItem();
+            Partner appPartner = Partners.getPartnerFromType(partnerA.getSelectedItem().toString());
+            AppointmentType appType = AppointmentType.getAppointmentType(typeA.getSelectedItem().toString());
             Date appDate = new Date(dateA.getText());
             Appointment newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate);
-
+            System.out.println(newAppointment.toString());
             Appointments.add(newAppointment);
+            SwingUtilities.getRoot(this).revalidate();
+            SwingUtilities.getRoot(this).repaint();
+            parent.dispose();
         }
     }
 

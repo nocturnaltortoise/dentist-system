@@ -13,7 +13,7 @@ public class BookDialog extends JDialog {
 
         Container contentPane = getContentPane();
 
-        BookPanel dpanel = new BookPanel();
+        BookPanel dpanel = new BookPanel(this);
 
         contentPane.add(dpanel);
         pack();

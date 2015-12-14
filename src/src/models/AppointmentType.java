@@ -20,6 +20,21 @@ public enum AppointmentType {
         return temp;
     }
 
+    public static AppointmentType getAppointmentType(String type){
+        switch(type){
+            case "Check Up":
+                return CHECK_UP;
+            case "Hygiene":
+                return HYGIENE;
+            case "Amalgam Filling":
+                return AMALGAM_FILLING;
+            case "Resin Filling":
+                return RESIN_FILLING;
+            default:
+                return GOLD_CROWN;
+        }
+    }
+
     public static long getLength(AppointmentType appType){
 
         switch(appType){
@@ -31,5 +46,16 @@ public enum AppointmentType {
                 return 60;
         }
 
+    }
+
+    public static long getLength(String appType){
+        switch(appType){
+            case "Hygiene":
+                return 20;
+            case "Check Up":
+                return 20;
+            default:
+                return 60;
+        }
     }
 }
