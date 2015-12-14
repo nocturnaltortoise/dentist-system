@@ -128,7 +128,7 @@ public class Appointments  {
             ResultSet res = stmt.executeQuery("SELECT  Address.HouseNum, Address.Street, Address.District, " +
             		"Address.City, Address.PostCode, Patient.Title, Patient.First, " +
             		"Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID FROM Patient INNER JOIN " +
-            		"Address ON Patient.AddressID = Address.AddressID WHERE PatientID = " + patientId);
+            		"Address ON Patient.AddressID = Address.AddressID WHERE Patient.PatientID = " + patientId);
             while (res.next())
             {
             	Address addr = new Address(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5));
@@ -151,9 +151,10 @@ public class Appointments  {
             	pat = new Patient(ttl, res.getString(7), res.getString(8), dob, res.getString(10), addr, res.getInt(11));
             }
                        
-            res = stmt.executeQuery("SELECT  Treatment.TreatmentName, Appointment.StartTime, " +
+            res = stmt.executeQuery("SELECT Treatment.TreatmentName, Appointment.StartTime, " +
                     "Appointment.EndTime, Appointment.Partner, Appointment.Date FROM " +
-            		"Appointment INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID");
+            		"Appointment INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID" +
+            		"WHERE Appointment.PatientID = " + patientId);
             while (res.next())
             {
             	
