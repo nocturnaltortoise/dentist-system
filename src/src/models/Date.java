@@ -22,6 +22,8 @@ public class Date extends DateTime {
     public LocalDate getDate() { return date; }
 
     public boolean equals(Date d) { return date.equals(d.getDate()); }
-    public String toString() { return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear(); }
+    public String toString() { return date.toString(); }
+    
+    public String show() { return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear(); }
 
 }
