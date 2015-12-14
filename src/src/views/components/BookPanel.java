@@ -1,15 +1,26 @@
 package views.components;
 
-import models.AppointmentType;
+import models.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BookPanel extends JPanel {
+public class BookPanel extends JPanel implements ActionListener {
 
     private final int PADDING = 20;
     private final int TEXTBOX_SIZE = 300;
+    private JTextArea idInput;
+    private JTextArea sTimeA;
+    private JComboBox titleInput;
+    private JTextArea firstNameInput;
+    private JTextArea surnameInput;
+    private JComboBox partnerA;
+    private JComboBox typeA;
+    private JTextArea dateA;
+    private JButton submit;
 
     public BookPanel() {
         super();
@@ -18,35 +29,50 @@ public class BookPanel extends JPanel {
         setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
 
         JLabel sTimeL = new JLabel("Start Time: ", SwingConstants.LEFT);
-        JTextArea sTimeA = new InputArea("", TEXTBOX_SIZE);
+        sTimeA = new InputArea("", TEXTBOX_SIZE);
         //JLabel eTimeL = new JLabel("End Time: ", SwingConstants.LEFT);
         //JTextArea eTimeA = new InputArea("", TEXTBOX_SIZE);
-        JLabel patientL = new JLabel("Name: ", SwingConstants.LEFT);
-        JTextArea patientA = new InputArea("", TEXTBOX_SIZE);
+        JLabel titleLabel = new JLabel("Title: ", SwingConstants.LEFT);
+        titleInput = new JComboBox(Title.values());
+        titleInput.setAlignmentX(LEFT_ALIGNMENT);
 
-        String[] partners = {"I need SQL 1", "I need SQL 2"};
+        JLabel idLabel = new JLabel("Patient ID: ", SwingConstants.LEFT);
+        idInput = new InputArea("", TEXTBOX_SIZE);
+
+        JLabel firstNameLabel = new JLabel("First Name: ", SwingConstants.LEFT);
+        firstNameInput = new InputArea("", TEXTBOX_SIZE);
+
+        JLabel surnameLabel = new JLabel("Surname: ", SwingConstants.LEFT);
+        surnameInput = new InputArea("", TEXTBOX_SIZE);
+
         JLabel partnerL = new JLabel("Partner: ", SwingConstants.LEFT);
-        JComboBox partnerA = new JComboBox(partners);
+        partnerA = new JComboBox(PartnerType.values());
         partnerA.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel typeL = new JLabel("Appointment Type: ", SwingConstants.LEFT);
-        JComboBox typeA = new JComboBox(AppointmentType.getList());
+        typeA = new JComboBox(AppointmentType.getList());
         typeA.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel dateL = new JLabel("Date of Appointment: ", SwingConstants.LEFT);
-        JTextArea dateA = new InputArea("", TEXTBOX_SIZE);
+        dateA = new InputArea("", TEXTBOX_SIZE);
         //Appointment times are fixed by type, so no need to specify end time!
 
         //TODO: Upon submission, overlaps with other appointments and 9:00 - 17:00 need to be checked
-        JButton submit = new JButton("Submit");
+        submit = new JButton("Submit");
         submit.setAlignmentX(LEFT_ALIGNMENT);
 
+//        add(titleLabel);
+//        add(titleInput);
+//        add(firstNameLabel);
+//        add(firstNameInput);
+//        add(surnameLabel);
+//        add(surnameInput);
+        add(idLabel);
+        add(idInput);
         add(sTimeL);
         add(sTimeA);
         //add(eTimeL);
         //add(eTimeA);
-        add(patientL);
-        add(patientA);
         add(partnerL);
         add(partnerA);
         add(typeL);
@@ -55,6 +81,23 @@ public class BookPanel extends JPanel {
         add(dateA);
         add(Box.createRigidArea(new Dimension(0, PADDING)));
         add(submit);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event){
+
+        if(event.getSource() == submit){
+            Time startTime = new Time(sTimeA.getText());
+            long appLength = AppointmentType.getLength((AppointmentType)typeA.getSelectedItem());
+            Time endTime = startTime.plusMinutes(appLength);
+            Patient appPatient = Patients.getAll(Integer.valueOf(idInput.getText()));
+            Partner appPartner = Partners.getPartnerFromType((PartnerType)partnerA.getSelectedItem());
+            AppointmentType appType = (AppointmentType)typeA.getSelectedItem();
+            Date appDate = new Date(dateA.getText());
+            Appointment newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate);
+
+            Appointments.add(newAppointment);
+        }
     }
 
 }

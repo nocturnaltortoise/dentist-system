@@ -16,4 +16,5 @@ public class Time extends DateTime {
 
     public boolean equals(Time d) { return time.equals(d.getTime()); }
     public String toString() { return time.toString(); }
+    public Time plusMinutes(long minutesToAdd){ return new Time(this.time.plusMinutes(minutesToAdd)); }
 }

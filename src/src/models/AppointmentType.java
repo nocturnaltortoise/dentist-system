@@ -19,4 +19,17 @@ public enum AppointmentType {
                 GOLD_CROWN.toString() };
         return temp;
     }
+
+    public static long getLength(AppointmentType appType){
+
+        switch(appType){
+            case HYGIENE:
+                return 20;
+            case CHECK_UP:
+                return 20;
+            default:
+                return 60;
+        }
+
+    }
 }
