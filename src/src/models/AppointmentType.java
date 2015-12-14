@@ -2,10 +2,10 @@ package models;
 
 public enum AppointmentType {
     HYGIENE("Hygiene"),
-    CHECK_UP("Check Up"),
-    AMALGAM_FILLING("Amalgam Filling"),
-    RESIN_FILLING("Resin Filling"),
-    GOLD_CROWN("Gold Crown Filling");
+    CHECK_UP("Check-up"),
+    AMALGAM_FILLING("Silver Amalgam Filling"),
+    RESIN_FILLING("White Composite Resin Filling"),
+    GOLD_CROWN("Gold Crown Fitting");
 
     private String type;
     AppointmentType(String t) { type = t; }
