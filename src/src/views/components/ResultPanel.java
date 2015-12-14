@@ -17,9 +17,10 @@ public class ResultPanel extends JPanel {
     public ResultPanel(ArrayList<Appointment> appointmentList) {
         super();
         this.appointmentList = appointmentList;
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
-        setMinimumSize(size);
-        setMaximumSize(size);
+//        setMinimumSize(size);
+//        setMaximumSize(size);
 
         for(Appointment app : appointmentList){
             JLabel infoLabel = new JLabel(
