@@ -21,8 +21,9 @@ public enum AppointmentType {
     }
 
     public static AppointmentType getAppointmentType(String type){
+        System.out.println(type);
         switch(type){
-            case "Check Up":
+            case "Check-up":
                 return CHECK_UP;
             case "Hygiene":
                 return HYGIENE;
