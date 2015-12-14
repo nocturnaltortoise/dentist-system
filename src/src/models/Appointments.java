@@ -282,13 +282,13 @@ public class Appointments  {
             stmt.executeUpdate(sql);
             
             sql = "DELETE FROM Appointment" +
-            			" WHERE Date = " + date + " AND StartTime = " + time +
+            			" WHERE Date = '" + date + "' AND StartTime = '" + time + "'" +
             			" AND Partner = '" + partner +"'";
             stmt.executeUpdate(sql);
             
             int appId = 0;
             ResultSet res = stmt.executeQuery("SELECT * FROM Appointment " +
-            			" WHERE Date = " + date + " AND StartTime = " + time +
+            			" WHERE Date = '" + date + "' AND StartTime = '" + time + "'" +
             			" AND Partner = '" + partner +"'");
             while(res.next())
             {
