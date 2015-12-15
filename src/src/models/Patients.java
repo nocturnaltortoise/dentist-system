@@ -94,7 +94,7 @@ public class Patients {
             String district = patient.getAddress().districtName;
             String city = patient.getAddress().cityName;
             String postcode = patient.getAddress().postCode;
-            String plan = patient.plan.toString();
+            String plan = HealthcarePlan.NONE.toString();
 
             String sql = "INSERT INTO Address VALUES(null, '" + houseNumber + "','" + street + "','" + district + "','" + city + "','" + postcode + "'" + ")";
 
