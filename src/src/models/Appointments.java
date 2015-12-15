@@ -35,29 +35,32 @@ public class Appointments  {
             stmt = Conn.createStatement();
                        
             ResultSet res = stmt.executeQuery("SELECT  Address.HouseNum, Address.Street, Address.District, " +
-            		"Address.City, Address.PostCode, Treatment.TreatmentName, " +
+            		"Address.City, Address.PostCode, Appointment.Type, " +
             		"Patient.Title, Patient.First, Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID, " +
                     "Appointment.StartTime,  Appointment.EndTime, Appointment.Partner, " +
             		"Appointment.Date FROM Appointment INNER JOIN Patient ON Appointment.PatientID = Patient.PatientID " +
-                    "INNER JOIN Address ON Patient.AddressID = Address.AddressID " +
-                    "INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID");
+                    "INNER JOIN Address ON Patient.AddressID = Address.AddressID " );
+            // "INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID
+            //Treatment.TreatmentName,
             while (res.next())
             {
                 Address addr = new Address(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5));
-                AppointmentType type = null;
-                switch(res.getString(6))
-                {
-                	case "Check-up": type = AppointmentType.CHECK_UP;
-                		break;
-                	case "Hygiene": type = AppointmentType.HYGIENE;
-                		break;
-                	case "Silver Amalgam Filling": type = AppointmentType.AMALGAM_FILLING;
-                		break;
-                	case "White Composite Resin Filling": type = AppointmentType.RESIN_FILLING;
-                		break;
-                	case "Gold Crown Fitting": type = AppointmentType.GOLD_CROWN;
-                		break;               
-                }
+                AppointmentType type = AppointmentType.getAppointmentType(res.getString(6));
+//                switch(res.getString(6))
+//                {
+//                	case "Check-up": type = AppointmentType.CHECK_UP;
+//                		break;
+//                	case "Hygiene": type = AppointmentType.HYGIENE;
+//                		break;
+//					case "Treatment": type = AppointmentType.TREATMENT;
+//						break;
+////                	case "Silver Amalgam Filling": type = AppointmentType.AMALGAM_FILLING;
+////                		break;
+////                	case "White Composite Resin Filling": type = AppointmentType.RESIN_FILLING;
+////                		break;
+////                	case "Gold Crown Fitting": type = AppointmentType.GOLD_CROWN;
+////                		break;
+//                }
                 Title ttl = null;
                 switch(res.getString(7))
                 {
@@ -83,7 +86,7 @@ public class Appointments  {
             	else
             		dr = hygienist;
             	Date dat = new Date(LocalDate.parse(res.getString(16), formatter));
-                
+
             	//System.out.println(dob.toString() + " " + dat.toString());
             	
             	Appointment app = new Appointment(start, end, pat, dr, type, dat);
@@ -151,27 +154,31 @@ public class Appointments  {
             	pat = new Patient(ttl, res.getString(7), res.getString(8), dob, res.getString(10), addr, res.getInt(11));
             }
                        
-            res = stmt.executeQuery("SELECT Treatment.TreatmentName, Appointment.StartTime, " +
+            res = stmt.executeQuery("SELECT Appointment.StartTime, " +
                     "Appointment.EndTime, Appointment.Partner, Appointment.Date FROM " +
-            		"Appointment INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID" +
+            		"Appointment " +
             		" WHERE Appointment.PatientID = " + patientId);
+            //Treatment.TreatmentName,
+            //INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID
             while (res.next())
             {
             	
-                AppointmentType type = null;
-                switch(res.getString(1))
-                {
-                	case "Check-up": type = AppointmentType.CHECK_UP;
-                		break;
-                	case "Hygiene": type = AppointmentType.HYGIENE;
-                		break;
-                	case "Silver Amalgam Filling": type = AppointmentType.AMALGAM_FILLING;
-                		break;
-                	case "White Composite Resin Filling": type = AppointmentType.RESIN_FILLING;
-                		break;
-                	case "Gold Crown Fitting": type = AppointmentType.GOLD_CROWN;
-                		break;               
-                }
+                AppointmentType type = AppointmentType.getAppointmentType(res.getString(1));
+//                switch(res.getString(1))
+//                {
+//                	case "Check-up": type = AppointmentType.CHECK_UP;
+//                		break;
+//                	case "Hygiene": type = AppointmentType.HYGIENE;
+//                		break;
+//					case "Treatment": type = AppointmentType.TREATMENT;
+//						break;
+////                	case "Silver Amalgam Filling": type = AppointmentType.AMALGAM_FILLING;
+////                		break;
+////                	case "White Composite Resin Filling": type = AppointmentType.RESIN_FILLING;
+////                		break;
+////                	case "Gold Crown Fitting": type = AppointmentType.GOLD_CROWN;
+////                		break;
+//                }
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             	Time start = new Time(res.getString(2).substring(0, 5));
@@ -227,7 +234,7 @@ public class Appointments  {
         	Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
             String sql = "INSERT INTO Appointment " +
-            			"VALUES (null, '" + date + "', '" + start + "', '"+ end + "', '" + partner + "', " + patientId + ")";
+            			"VALUES (null, '" + date + "', '" + start + "', '"+ end + "', '" + partner + "', '" + patientId + "', '" + type + "')";
             stmt.executeUpdate(sql);
             
             int appId = 0;
@@ -238,9 +245,9 @@ public class Appointments  {
             	appId = res.getInt(1);
             }
             
-            sql = "INSERT INTO Treatment " +
-        			"VALUES (" + appId + ", '" + type +"')";
-            stmt.executeUpdate(sql);
+//            sql = "INSERT INTO Treatment " +
+//        			"VALUES (" + appId + ", '" + type +"')";
+//            stmt.executeUpdate(sql);
         }
         catch (SQLException e)
         {

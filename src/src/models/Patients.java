@@ -68,4 +68,8 @@ public class Patients {
         return pat;
     }
 
+    public static void add(Patient patient){
+
+    }
+
 }

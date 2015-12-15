@@ -91,7 +91,6 @@ public class BookPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent event){
 
         if(event.getSource() == submit){
-            System.out.println("Clicked");
             Time startTime = new Time(sTimeA.getText());
             long appLength = AppointmentType.getLength(typeA.getSelectedItem().toString());
             Time endTime = startTime.plusMinutes(appLength);
@@ -99,9 +98,13 @@ public class BookPanel extends JPanel implements ActionListener {
             Partner appPartner = Partners.getPartnerFromType(partnerA.getSelectedItem().toString());
             AppointmentType appType = AppointmentType.getAppointmentType(typeA.getSelectedItem().toString());
             Date appDate = new Date(dateA.getText());
+
             Appointment newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate);
+
             System.out.println(newAppointment.toString());
+
             Appointments.add(newAppointment);
+
             SecretaryView currentView = (SecretaryView)SwingUtilities.getRoot(this).getParent();
             currentView.rebuildCalendar();
             parent.dispose();

@@ -3,6 +3,7 @@ package views.components;
 import models.Appointment;
 import models.AppointmentType;
 import models.Treatment;
+import models.TreatmentType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +13,7 @@ public class ConfirmVisitPanel extends JPanel {
     private static final int PADDING = 20;
     private static final int TEXTBOX_SIZE = 300;
 
-    private JComboBox treatmentType;
+    private JComboBox<TreatmentType> treatmentType;
     private JTextArea costInput;
     private JLabel costLabel;
     private JLabel treatmentTypeLabel;
@@ -26,7 +27,7 @@ public class ConfirmVisitPanel extends JPanel {
         setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
 
         treatmentTypeLabel = new JLabel("Treatment Type: ");
-        treatmentType = new JComboBox(AppointmentType.values());
+        treatmentType = new JComboBox<>(TreatmentType.values());
         treatmentType.setAlignmentX(LEFT_ALIGNMENT);
 
         costLabel = new JLabel("Cost: ");
@@ -49,7 +50,7 @@ public class ConfirmVisitPanel extends JPanel {
     }
 
     public Treatment getTreatment(){
-        return new Treatment((AppointmentType)treatmentType.getSelectedItem(), Double.parseDouble(costInput.getText()), this.app);
+        return new Treatment((TreatmentType)treatmentType.getSelectedItem(), this.app);
     }
 
 

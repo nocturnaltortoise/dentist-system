@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Appointment {
 
     private Time startTime;
@@ -9,6 +11,7 @@ public class Appointment {
     private AppointmentType type;
     private Date date;
     private Time length;
+    private ArrayList<Treatment> treatments;
 
     public Appointment(Time startTime, Time endTime, Patient patient, Partner partner, AppointmentType type, Date date){
         this.startTime = startTime;
@@ -18,8 +21,15 @@ public class Appointment {
         this.type = type;
         this.date = date;
         this.length = new Time(this.startTime.getTime()
-                        .minusHours(this.endTime.getTime().getHour())
-                        .minusMinutes(this.endTime.getTime().getMinute()));
+                .minusHours(this.endTime.getTime().getHour())
+                .minusMinutes(this.endTime.getTime().getMinute()));
+        this.treatments = new ArrayList<>();
+//        this.treatments.add(new Treatment(TreatmentType.AMALGAM_FILLING, this));
+    }
+
+    public Appointment(Time startTime, Time endTime, Patient patient, Partner partner, AppointmentType type, Date date, ArrayList<Treatment> treatments){
+        this(startTime, endTime, patient, partner, type, date);
+        this.treatments = treatments;
     }
 
     public Time getStartTime() { return startTime; }

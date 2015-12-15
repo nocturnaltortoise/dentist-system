@@ -2,13 +2,13 @@ package models;
 
 public class Treatment {
 
-    private AppointmentType type;
+    private TreatmentType type;
     private double cost;
     private Appointment app;
 
-    public Treatment(AppointmentType treatmentType, double cost, Appointment app){
+    public Treatment(TreatmentType treatmentType, Appointment app){
         this.type = treatmentType;
-        this.cost = cost;
+        this.cost = this.type.getCost();
         this.app = app;
     }
 

@@ -3,9 +3,10 @@ package models;
 public enum AppointmentType {
     HYGIENE("Hygiene"),
     CHECK_UP("Check-up"),
-    AMALGAM_FILLING("Silver Amalgam Filling"),
-    RESIN_FILLING("White Composite Resin Filling"),
-    GOLD_CROWN("Gold Crown Fitting");
+    TREATMENT("Treatment");
+//    AMALGAM_FILLING("Silver Amalgam Filling"),
+//    RESIN_FILLING("White Composite Resin Filling"),
+//    GOLD_CROWN("Gold Crown Fitting");
 
     private String type;
     AppointmentType(String t) { type = t; }
@@ -14,9 +15,10 @@ public enum AppointmentType {
         String[] temp = {
                 HYGIENE.toString(),
                 CHECK_UP.toString(),
-                AMALGAM_FILLING.toString(),
-                RESIN_FILLING.toString(),
-                GOLD_CROWN.toString() };
+                TREATMENT.toString() };
+//                AMALGAM_FILLING.toString(),
+//                RESIN_FILLING.toString(),
+//                GOLD_CROWN.toString() };
         return temp;
     }
 
@@ -27,12 +29,12 @@ public enum AppointmentType {
                 return CHECK_UP;
             case "Hygiene":
                 return HYGIENE;
-            case "Amalgam Filling":
-                return AMALGAM_FILLING;
-            case "Resin Filling":
-                return RESIN_FILLING;
+//            case "Amalgam Filling":
+//                return AMALGAM_FILLING;
+//            case "Resin Filling":
+//                return RESIN_FILLING;
             default:
-                return GOLD_CROWN;
+                return TREATMENT;
         }
     }
 
