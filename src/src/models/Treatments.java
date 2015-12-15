@@ -52,6 +52,7 @@ public class Treatments {
 
         int appId = treatment.getApp().getAppId();
         String name = treatment.getType().toString();
+        double amountOwed = treatment.getType().getCost();
 
         Connection Conn = null;
         Statement stmt = null;
@@ -69,7 +70,7 @@ public class Treatments {
             stmt = Conn.createStatement();
 
             String sql = "INSERT INTO Treatment " +
-        			"VALUES (" + appId + ", '" + name +"')";
+        			"VALUES ('" + appId + "', '" + name + "', '" + amountOwed + "')";
             stmt.executeUpdate(sql);
         }
         catch (SQLException e)
