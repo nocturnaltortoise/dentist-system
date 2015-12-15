@@ -15,12 +15,7 @@ public class Patient {
         this(name.getTitle(), name.getFirstName(), name.getSurname(), dateOfBirth, phone, address, id);
     }
     public Patient(Title title, String firstName, String surname, Date dateOfBirth, String phone, Address address) {
-        this.name = new Name(title, firstName, surname);
-        this.dateOfBirth = dateOfBirth;
-        this.phone = phone;
-        this.address = address;
-        //TODO: Properly generate a patientID
-        this.patientId = 0;
+        this(title, firstName, surname, dateOfBirth, phone, address, 0);
     }
     public Patient(Title title, String firstName, String surname, Date dateOfBirth, String phone, Address address, int id) {
         this.name = new Name(title, firstName, surname);
@@ -41,5 +36,8 @@ public class Patient {
     public Date getDateOfBirth() { return dateOfBirth; }
     public String getPhone() { return phone; }
     public Address getAddress() { return address; }
+    public HealthcarePlan getPlan() { return plan; }
     public String toString(){ return this.name + this.dateOfBirth.toString() + this.phone + this.address.toString(); }
+
+    public void setPlan(String plan) { this.plan = HealthcarePlan.getHealthcarePlan(plan); }
 }

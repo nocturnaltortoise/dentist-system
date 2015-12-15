@@ -5,14 +5,19 @@ import models.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ProfilePanel extends JPanel {
+public class ProfilePanel extends JPanel implements ActionListener {
 
     private final int PADDING = 20;
+    private Patient patient;
+    private JComboBox healthcarePlanInput;
 
     public ProfilePanel(Patient p, boolean sec) {
         super();
+        this.patient = p;
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         setBackground(CustomColor.DARK_GREY);
@@ -56,8 +61,10 @@ public class ProfilePanel extends JPanel {
         add(addLabel);
         if (sec) {
             JLabel healthcarePlanLabel = setLabel("Healthcare Plan: ", Color.WHITE, 24);
-            JComboBox<HealthcarePlan> healthcarePlanInput = new JComboBox<>(HealthcarePlan.values());
+            healthcarePlanInput = new JComboBox(HealthcarePlan.values());
+            healthcarePlanInput.setSelectedItem(p.getPlan());
             healthcarePlanInput.setAlignmentX(CENTER_ALIGNMENT);
+            healthcarePlanInput.addActionListener(this);
             add(healthcarePlanLabel);
             add(healthcarePlanInput);
         }
@@ -108,4 +115,13 @@ public class ProfilePanel extends JPanel {
         return f.deriveFont(Font.PLAIN, size);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent event) {
+
+        if (event.getSource() == healthcarePlanInput &&
+                healthcarePlanInput.getSelectedItem().toString() != patient.getPlan().toString()) {
+            patient.setPlan(healthcarePlanInput.getSelectedItem().toString());
+            Patients.changePlan(patient, healthcarePlanInput.getSelectedItem().toString());
+        }
+    }
 }

@@ -64,7 +64,7 @@ public class Appointments  {
             res = stmt.executeQuery("SELECT Appointment.Type, " +
                     "Appointment.AppointmentID, Appointment.StartTime,  Appointment.EndTime, Appointment.Partner, " +
                     "Appointment.Date, " +
-                    "Patient.Title, Patient.First, Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID, " +
+                    "Patient.Title, Patient.First, Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID, Patient.PlanName, " +
                     "Address.HouseNum, Address.Street, Address.District, Address.City, Address.PostCode " +
                     "FROM Appointment " +
                     "INNER JOIN Patient ON Appointment.PatientID = Patient.PatientID " +
@@ -82,7 +82,7 @@ public class Appointments  {
                 else
                     dr = hygienist;
                 dat = new Date(LocalDate.parse(res.getString(6), formatter));
-                Address addr = new Address(res.getInt(13), res.getString(14), res.getString(15), res.getString(16), res.getString(17));
+                Address addr = new Address(res.getInt(14), res.getString(15), res.getString(16), res.getString(17), res.getString(18));
                 Date dob = new Date(LocalDate.parse(res.getString(10), formatter));
                 Title ttl = null;
                 switch(res.getString(7)) {
@@ -102,7 +102,7 @@ public class Appointments  {
                         ttl = Title.DR;
                         break;
                 }
-                Patient pat = new Patient(ttl, res.getString(8), res.getString(9), dob, res.getString(11), addr, res.getInt(12));
+                Patient pat = new Patient(ttl, res.getString(8), res.getString(9), dob, res.getString(11), addr, res.getInt(12), HealthcarePlan.getHealthcarePlan(res.getString(13)));
                 app = new Appointment(start, end, pat, dr, type, dat, appId);
             	applist.add(app);
             }     

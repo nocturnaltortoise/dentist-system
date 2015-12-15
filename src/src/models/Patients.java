@@ -26,7 +26,7 @@ public class Patients {
 
             ResultSet res = stmt.executeQuery("SELECT  Address.HouseNum, Address.Street, Address.District, " +
                     "Address.City, Address.PostCode, Patient.Title, Patient.First, " +
-                    "Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID FROM Patient INNER JOIN " +
+                    "Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID, Patient.PlanName FROM Patient INNER JOIN " +
                     "Address ON Patient.AddressID = Address.AddressID WHERE PatientID = " + patientId);
             while (res.next()) {
                 Address addr = new Address(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5));
@@ -50,7 +50,8 @@ public class Patients {
                 }
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 Date dob = new Date(LocalDate.parse(res.getString(9), formatter));
-                pat = new Patient(ttl, res.getString(7), res.getString(8), dob, res.getString(10), addr, res.getInt(11));
+                System.out.println("Here: " + res.getString(12));
+                pat = new Patient(ttl, res.getString(7), res.getString(8), dob, res.getString(10), addr, res.getInt(11), HealthcarePlan.getHealthcarePlan(res.getString(12)));
             }
         }catch (SQLException e)
         {
@@ -130,8 +131,36 @@ public class Patients {
 
     }
 
-    public static void changePlan(Patient patient, HealthcarePlan plan){
+    public static void changePlan(Patient patient, String plan){
+        Connection Conn = null;
+        Statement stmt;
 
+        try {
+            Class.forName("org.gjt.mm.mysql.Driver").newInstance();
+        } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
+
+        try{
+            Conn = DriverManager.getConnection(DB);
+            stmt = Conn.createStatement();
+            String sql = "UPDATE Patient SET PlanName = '" + plan + "' WHERE PatientID = " + patient.getId();
+            stmt.executeUpdate(sql);
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (Conn != null)
+                try {
+                    Conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
 }

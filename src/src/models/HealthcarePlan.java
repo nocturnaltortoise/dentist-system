@@ -1,7 +1,7 @@
 package models;
 
 public enum HealthcarePlan {
-    NONE("None"),
+    NONE("NONE"),
     NHS_FREE_PLAN("NHS Free Plan"),
     MAINTENANCE_PLAN("Maintenance Plan"),
     ORAL_HEALTH_PLAN("Oral Health Plan"),
@@ -9,4 +9,21 @@ public enum HealthcarePlan {
 
     private String name;
     HealthcarePlan(String name){ this.name = name; }
+
+    public String toString() { return name; }
+
+    public static HealthcarePlan getHealthcarePlan(String type){
+        switch(type){
+            case "NONE":
+                return NONE;
+            case "NHS Free Plan":
+                return NHS_FREE_PLAN;
+            case "Maintenance Plan":
+                return MAINTENANCE_PLAN;
+            case "Oral Health Plan":
+                return ORAL_HEALTH_PLAN;
+            default:
+                return DENTAL_REPAIR_PLAN;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package views.components;
 
 import models.Patient;
+import models.Patients;
 import views.ProfileView;
 
 import javax.swing.*;
@@ -29,6 +30,7 @@ public class PatientButton extends JButton implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent event){
+        patient = Patients.getAll(patient.getId());
         new ProfileView(patient, sec);
     }
 
