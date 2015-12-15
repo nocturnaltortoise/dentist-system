@@ -12,8 +12,9 @@ public class Appointment {
     private Date date;
     private Time length;
     private ArrayList<Treatment> treatments;
+    private int appId;
 
-    public Appointment(Time startTime, Time endTime, Patient patient, Partner partner, AppointmentType type, Date date){
+    public Appointment(Time startTime, Time endTime, Patient patient, Partner partner, AppointmentType type, Date date, int appId){
         this.startTime = startTime;
         this.endTime = endTime;
         this.patient = patient;
@@ -24,14 +25,18 @@ public class Appointment {
                 .minusHours(this.endTime.getTime().getHour())
                 .minusMinutes(this.endTime.getTime().getMinute()));
         this.treatments = new ArrayList<>();
+        this.appId = appId;
 //        this.treatments.add(new Treatment(TreatmentType.AMALGAM_FILLING, this));
     }
 
-    public Appointment(Time startTime, Time endTime, Patient patient, Partner partner, AppointmentType type, Date date, ArrayList<Treatment> treatments){
-        this(startTime, endTime, patient, partner, type, date);
+    public Appointment(Time startTime, Time endTime, Patient patient, Partner partner, AppointmentType type, Date date, ArrayList<Treatment> treatments, int appId){
+        this(startTime, endTime, patient, partner, type, date, appId);
         this.treatments = treatments;
     }
 
+    public void setAppId(int appId){
+        this.appId = appId;
+    }
     public Time getStartTime() { return startTime; }
     public Time getEndTime() { return endTime; }
     public Patient getPatient() { return patient; }
@@ -39,6 +44,7 @@ public class Appointment {
     public AppointmentType getType() { return type; }
     public Date getDate() { return date; }
     public Time getLength() { return length; }
+    public int getAppId(){ return this.appId; }
     public String toString(){
         return this.date + " " + this.startTime + " - " + this.endTime + " Patient: " + this.patient.toString() + " With: " + this.partner.getName() + " Type: " + this.type;
     }

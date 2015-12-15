@@ -1,6 +1,7 @@
 package views.components;
 
 import models.Appointment;
+import models.Treatment;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,17 +46,17 @@ public class ConfirmVisitDialog extends JDialog implements ActionListener {
         setVisible(true);
     }
 
-    private boolean anyEmpty() {
-        boolean empty = false;
-        for(ConfirmVisitPanel i : panelList) { if(i.isEmpty()) empty = true; break; }
-        return empty;
-    }
-
-    private boolean anyNotInt() {
-        boolean notInt = false;
-        for(ConfirmVisitPanel i : panelList) { if(!i.isInt()) notInt = true; break; }
-        return notInt;
-    }
+//    private boolean anyEmpty() {
+//        boolean empty = false;
+//        for(ConfirmVisitPanel i : panelList) { if(i.isEmpty()) empty = true; break; }
+//        return empty;
+//    }
+//
+//    private boolean anyNotInt() {
+//        boolean notInt = false;
+//        for(ConfirmVisitPanel i : panelList) { if(!i.isInt()) notInt = true; break; }
+//        return notInt;
+//    }
 
     @Override
     public void actionPerformed(ActionEvent event){
@@ -70,12 +71,18 @@ public class ConfirmVisitDialog extends JDialog implements ActionListener {
             pack();
         }else if(event.getSource() == submit){
             // should do something more useful than printing - like adding to a patient's list of treatments
-            if(anyEmpty()) JOptionPane.showMessageDialog(this, "You must enter a treatment cost.", "Error", JOptionPane.ERROR_MESSAGE);
-            else if(anyNotInt()) JOptionPane.showMessageDialog(this, "Treatment costs must be integers.", "Error", JOptionPane.ERROR_MESSAGE);
-            else {
-                panelList.forEach(panel -> System.out.println(panel.getTreatment()));
+//            if(anyEmpty()) JOptionPane.showMessageDialog(this, "You must enter a treatment cost.", "Error", JOptionPane.ERROR_MESSAGE);
+//            else if(anyNotInt()) JOptionPane.showMessageDialog(this, "Treatment costs must be integers.", "Error", JOptionPane.ERROR_MESSAGE);
+//            else {
+                for(ConfirmVisitPanel panel : panelList){
+                    Treatment newTreatment = panel.getTreatment();
+                    int appId = newTreatment.getApp().getAppId();
+                    String treatmentName = newTreatment.getType().toString();
+
+                }
+//                panelList.forEach(panel -> System.out.println(panel.getTreatment()));
                 this.dispose();
-            }
+//            }
         }
 
     }

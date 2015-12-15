@@ -14,8 +14,6 @@ public class ConfirmVisitPanel extends JPanel {
     private static final int TEXTBOX_SIZE = 300;
 
     private JComboBox<TreatmentType> treatmentType;
-    private JTextArea costInput;
-    private JLabel costLabel;
     private JLabel treatmentTypeLabel;
     private Appointment app;
 
@@ -30,24 +28,19 @@ public class ConfirmVisitPanel extends JPanel {
         treatmentType = new JComboBox<>(TreatmentType.values());
         treatmentType.setAlignmentX(LEFT_ALIGNMENT);
 
-        costLabel = new JLabel("Cost: ");
-        costInput = new InputArea("", TEXTBOX_SIZE);
-
         add(treatmentTypeLabel);
         add(treatmentType);
-        add(costLabel);
-        add(costInput);
     }
 
-    public boolean isEmpty() { return costInput.getText().equals(""); }
-    public boolean isInt() {
-        try {
-            int num = Integer.parseInt(costInput.getText());
-            return true;
-        }catch (Exception e) {
-            return false;
-        }
-    }
+//    public boolean isEmpty() { return costInput.getText().equals(""); }
+//    public boolean isInt() {
+//        try {
+//            int num = Integer.parseInt(costInput.getText());
+//            return true;
+//        }catch (Exception e) {
+//            return false;
+//        }
+//    }
 
     public Treatment getTreatment(){
         return new Treatment((TreatmentType)treatmentType.getSelectedItem(), this.app);

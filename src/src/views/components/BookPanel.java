@@ -99,11 +99,13 @@ public class BookPanel extends JPanel implements ActionListener {
             AppointmentType appType = AppointmentType.getAppointmentType(typeA.getSelectedItem().toString());
             Date appDate = new Date(dateA.getText());
 
-            Appointment newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate);
+            Appointment newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate, 0);
 
             System.out.println(newAppointment.toString());
 
             Appointments.add(newAppointment);
+
+            newAppointment.setAppId(Appointments.getMaxAppId());
 
             SecretaryView currentView = (SecretaryView)SwingUtilities.getRoot(this).getParent();
             currentView.rebuildCalendar();

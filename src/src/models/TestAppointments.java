@@ -23,11 +23,11 @@ public class TestAppointments {
     private static Partner dentist = new Partner(Title.DR, "Jason", "Bourne", PartnerType.DENTIST);
     private static Partner hygienist = new Partner(Title.DR, "Charlotte", "Webb", PartnerType.HYGIENIST);
 
-    public static Appointment[] appointments = {
-            new Appointment(new Time("11:00"), new Time("12:00"), pat1, dentist, AppointmentType.CHECK_UP, new Date(LocalDate.now().plusDays(1))),
-            new Appointment(new Time("12:00"), new Time("13:00"), pat2, dentist, AppointmentType.CHECK_UP, new Date(LocalDate.now().plusDays(1))),
-            new Appointment(new Time("14:20"), new Time("15:00"), pat2, hygienist, AppointmentType.HYGIENE, new Date(LocalDate.now().plusDays(3))),
-            new Appointment(new Time("17:00"), new Time("18:00"), pat3, dentist, AppointmentType.TREATMENT, new Date(LocalDate.now().plusDays(4)))
-    };
+//    public static Appointment[] appointments = {
+//            new Appointment(new Time("11:00"), new Time("12:00"), pat1, dentist, AppointmentType.CHECK_UP, new Date(LocalDate.now().plusDays(1))),
+//            new Appointment(new Time("12:00"), new Time("13:00"), pat2, dentist, AppointmentType.CHECK_UP, new Date(LocalDate.now().plusDays(1))),
+//            new Appointment(new Time("14:20"), new Time("15:00"), pat2, hygienist, AppointmentType.HYGIENE, new Date(LocalDate.now().plusDays(3))),
+//            new Appointment(new Time("17:00"), new Time("18:00"), pat3, dentist, AppointmentType.TREATMENT, new Date(LocalDate.now().plusDays(4)))
+//    };
 
 }

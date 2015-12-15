@@ -12,6 +12,14 @@ public class Treatment {
         this.app = app;
     }
 
+    public Appointment getApp(){
+        return this.app;
+    }
+
+    public TreatmentType getType(){
+        return this.type;
+    }
+
     @Override
     public String toString(){
         return this.type.toString() + " " + "£" + this.cost + " For Appointment: " + this.app.toString();

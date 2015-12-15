@@ -37,7 +37,7 @@ public class Appointments  {
             ResultSet res = stmt.executeQuery("SELECT  Address.HouseNum, Address.Street, Address.District, " +
             		"Address.City, Address.PostCode, Appointment.Type, " +
             		"Patient.Title, Patient.First, Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID, " +
-                    "Appointment.StartTime,  Appointment.EndTime, Appointment.Partner, " +
+                    "Appointment.AppointmentID, Appointment.StartTime,  Appointment.EndTime, Appointment.Partner, " +
             		"Appointment.Date FROM Appointment INNER JOIN Patient ON Appointment.PatientID = Patient.PatientID " +
                     "INNER JOIN Address ON Patient.AddressID = Address.AddressID " );
             // "INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID
@@ -78,18 +78,19 @@ public class Appointments  {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 Date dob = new Date(LocalDate.parse(res.getString(10), formatter));
             	Patient pat = new Patient(ttl, res.getString(8), res.getString(9), dob, res.getString(11), addr, res.getInt(12));
-            	Time start = new Time(res.getString(13).substring(0, 5));
-            	Time end = new Time(res.getString(14).substring(0, 5));
+            	int appId = Integer.valueOf(res.getString(13));
+                Time start = new Time(res.getString(14).substring(0, 5));
+            	Time end = new Time(res.getString(15).substring(0, 5));
             	Partner dr = null;
-            	if (res.getString(15).equals("Dentist"))
+            	if (res.getString(16).equals("Dentist"))
             		dr = dentist;
             	else
             		dr = hygienist;
-            	Date dat = new Date(LocalDate.parse(res.getString(16), formatter));
+            	Date dat = new Date(LocalDate.parse(res.getString(17), formatter));
 
             	//System.out.println(dob.toString() + " " + dat.toString());
             	
-            	Appointment app = new Appointment(start, end, pat, dr, type, dat);
+            	Appointment app = new Appointment(start, end, pat, dr, type, dat, appId);
             	applist.add(app);
             }     
         }
@@ -154,16 +155,17 @@ public class Appointments  {
             	pat = new Patient(ttl, res.getString(7), res.getString(8), dob, res.getString(10), addr, res.getInt(11));
             }
                        
-            res = stmt.executeQuery("SELECT Appointment.StartTime, " +
+            res = stmt.executeQuery("SELECT Appointment.AppointmentID, Appointment.Type, Appointment.StartTime, " +
                     "Appointment.EndTime, Appointment.Partner, Appointment.Date FROM " +
             		"Appointment " +
             		" WHERE Appointment.PatientID = " + patientId);
             //Treatment.TreatmentName,
             //INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID
+
             while (res.next())
             {
-            	
-                AppointmentType type = AppointmentType.getAppointmentType(res.getString(1));
+                int appId = Integer.valueOf(res.getString(1));
+                AppointmentType type = AppointmentType.getAppointmentType(res.getString(2));
 //                switch(res.getString(1))
 //                {
 //                	case "Check-up": type = AppointmentType.CHECK_UP;
@@ -181,16 +183,16 @@ public class Appointments  {
 //                }
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            	Time start = new Time(res.getString(2).substring(0, 5));
-            	Time end = new Time(res.getString(3).substring(0, 5));
+            	Time start = new Time(res.getString(3).substring(0, 5));
+            	Time end = new Time(res.getString(4).substring(0, 5));
             	Partner dr = null;
-            	if (res.getString(4).equals("Dentist"))
+            	if (res.getString(5).equals("Dentist"))
             		dr = dentist;
             	else
             		dr = hygienist;
-            	Date dat = new Date(LocalDate.parse(res.getString(5), formatter));
+            	Date dat = new Date(LocalDate.parse(res.getString(6), formatter));
             	
-            	Appointment app = new Appointment(start, end, pat, dr, type, dat);
+            	Appointment app = new Appointment(start, end, pat, dr, type, dat, appId);
             	applist.add(app);
             }     
         }
@@ -363,4 +365,45 @@ public class Appointments  {
 				}
         }
     }
+
+    public static int getMaxAppId() {
+        Connection Conn = null;
+        Statement stmt = null;
+        int maxId = 0;
+        try {
+            Class.forName("org.gjt.mm.mysql.Driver").newInstance();
+        } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String DB = "jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
+
+        try {
+            Conn = DriverManager.getConnection(DB);
+            stmt = Conn.createStatement();
+
+            String sql = "SELECT MAX(Appointment.AppointmentID) FROM Appointment";
+//            stmt.executeUpdate(sql);
+
+            ResultSet resultSet = stmt.executeQuery(sql);
+
+            while(resultSet.next()){
+                maxId = resultSet.getInt(1);
+            }
+            return maxId;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (Conn != null)
+                try {
+                    Conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+        return maxId;
+    }
+
 }
