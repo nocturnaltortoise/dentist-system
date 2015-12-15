@@ -21,12 +21,18 @@ public class Appointment {
         this.partner = partner;
         this.type = type;
         this.date = date;
-        this.length = new Time(this.startTime.getTime()
-                .minusHours(this.endTime.getTime().getHour())
-                .minusMinutes(this.endTime.getTime().getMinute()));
+        if(startTime != null) {
+            this.length = new Time(this.startTime.getTime()
+                    .minusHours(this.endTime.getTime().getHour())
+                    .minusMinutes(this.endTime.getTime().getMinute()));
+        }
         this.treatments = new ArrayList<>();
         this.appId = appId;
 //        this.treatments.add(new Treatment(TreatmentType.AMALGAM_FILLING, this));
+    }
+
+    public Appointment(Partner partner, AppointmentType type, Date date, int appId){
+        this(null, null, null, partner, type, date, appId);
     }
 
     public Appointment(Time startTime, Time endTime, Patient patient, Partner partner, AppointmentType type, Date date, ArrayList<Treatment> treatments, int appId){
@@ -46,7 +52,10 @@ public class Appointment {
     public Time getLength() { return length; }
     public int getAppId(){ return this.appId; }
     public String toString(){
-        return this.date + " " + this.startTime + " - " + this.endTime + " Patient: " + this.patient.toString() + " With: " + this.partner.getName() + " Type: " + this.type;
+        if(startTime != null)
+            return this.date + " " + this.startTime + " - " + this.endTime + " Patient: " + this.patient.toString() + " With: " + this.partner.getName() + " Type: " + this.type;
+        else
+            return this.date + " With: " + this.partner.getName() + " Type: " + this.type;
     }
 
 }

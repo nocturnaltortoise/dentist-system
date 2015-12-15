@@ -17,22 +17,30 @@ public class AppointmentPanel extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
         patient = app.getPatient();
-        PatientButton patientButton = new PatientButton(patient, sec);
-        patientButton.setAlignmentX(CENTER_ALIGNMENT);
 
         String type = app.getType().toString();
-        Time startTime = app.getStartTime();
-        Time endTime = app.getEndTime();
-        JLabel appointmentInfo = new JLabel("<html><center>" + type + "<br>" + startTime + " - " + endTime + "</center></html>", JLabel.CENTER);
+        PatientButton patientButton;
+        JLabel appointmentInfo;
+        if (type != "Holiday") {
+            patientButton = new PatientButton(patient, sec);
+            patientButton.setAlignmentX(CENTER_ALIGNMENT);
+            add(patientButton);
+            Time startTime = app.getStartTime();
+            Time endTime = app.getEndTime();
+            appointmentInfo = new JLabel("<html><center>" + type + "<br>" + startTime + " - " + endTime + "</center></html>", JLabel.CENTER);
+        }else {
+            appointmentInfo = new JLabel("<html><center>" + type + "<br>" + app.getPartner().getName() + "</center></html>", JLabel.CENTER);
+        }
         appointmentInfo.setAlignmentX(CENTER_ALIGNMENT);
 
-        add(patientButton);
         add(appointmentInfo);
 
         if(sec) {
-            CancelButton cancelButton = new CancelButton(patient.getName().toString(), app);
-            cancelButton.setAlignmentX(CENTER_ALIGNMENT);
-            add(cancelButton);
+            if (type != "Holiday") {
+                CancelButton cancelButton = new CancelButton(patient.getName().toString(), app);
+                cancelButton.setAlignmentX(CENTER_ALIGNMENT);
+                add(cancelButton);
+            }
         }else {
             CompleteButton completeButton = new CompleteButton(app);
             completeButton.setAlignmentX(CENTER_ALIGNMENT);

@@ -33,64 +33,77 @@ public class Appointments  {
         {
             Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
-                       
-            ResultSet res = stmt.executeQuery("SELECT  Address.HouseNum, Address.Street, Address.District, " +
-            		"Address.City, Address.PostCode, Appointment.Type, " +
-            		"Patient.Title, Patient.First, Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID, " +
+
+            ResultSet res = stmt.executeQuery("SELECT Appointment.Type, " +
                     "Appointment.AppointmentID, Appointment.StartTime,  Appointment.EndTime, Appointment.Partner, " +
-            		"Appointment.Date FROM Appointment INNER JOIN Patient ON Appointment.PatientID = Patient.PatientID " +
-                    "INNER JOIN Address ON Patient.AddressID = Address.AddressID " );
+                    "Appointment.Date FROM Appointment WHERE Appointment.Type = 'Holiday'");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            Appointment app;
+            AppointmentType type;
+            int appId;
+            Time start;
+            Time end;
+            Partner dr = null;
+            Date dat;
+
+            while (res.next())
+            {
+
+                type = AppointmentType.getAppointmentType(res.getString(1));
+                appId = Integer.valueOf(res.getString(2));
+                if (res.getString(5).equals("Dentist"))
+                    dr = dentist;
+                else
+                    dr = hygienist;
+                dat = new Date(LocalDate.parse(res.getString(6), formatter));
+                app = new Appointment(dr, type, dat, appId);
+                applist.add(app);
+            }
+
+            res = stmt.executeQuery("SELECT Appointment.Type, " +
+                    "Appointment.AppointmentID, Appointment.StartTime,  Appointment.EndTime, Appointment.Partner, " +
+                    "Appointment.Date, " +
+                    "Patient.Title, Patient.First, Patient.Last, Patient.Dob, Patient.Tel, Patient.PatientID, " +
+                    "Address.HouseNum, Address.Street, Address.District, Address.City, Address.PostCode " +
+                    "FROM Appointment " +
+                    "INNER JOIN Patient ON Appointment.PatientID = Patient.PatientID " +
+                    "INNER JOIN Address ON Patient.AddressID = Address.AddressID WHERE Appointment.Type <> 'Holiday'" );
             // "INNER JOIN Treatment ON Appointment.AppointmentID = Treatment.AppointmentID
             //Treatment.TreatmentName,
             while (res.next())
             {
-                Address addr = new Address(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5));
-                AppointmentType type = AppointmentType.getAppointmentType(res.getString(6));
-//                switch(res.getString(6))
-//                {
-//                	case "Check-up": type = AppointmentType.CHECK_UP;
-//                		break;
-//                	case "Hygiene": type = AppointmentType.HYGIENE;
-//                		break;
-//					case "Treatment": type = AppointmentType.TREATMENT;
-//						break;
-////                	case "Silver Amalgam Filling": type = AppointmentType.AMALGAM_FILLING;
-////                		break;
-////                	case "White Composite Resin Filling": type = AppointmentType.RESIN_FILLING;
-////                		break;
-////                	case "Gold Crown Fitting": type = AppointmentType.GOLD_CROWN;
-////                		break;
-//                }
-                Title ttl = null;
-                switch(res.getString(7))
-                {
-                	case "Mr": ttl = Title.MR;
-                		break;
-                	case "Mrs": ttl = Title.MRS;
-            			break;
-                	case "Miss": ttl = Title.MISS;
-            			break;
-                	case "Ms": ttl = Title.MS;
-            			break;
-                	case "Dr": ttl = Title.DR;
-            			break;
-                }
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                type = AppointmentType.getAppointmentType(res.getString(1));
+                appId = Integer.valueOf(res.getString(2));
+                start = new Time(res.getString(3).substring(0, 5));
+                end = new Time(res.getString(4).substring(0, 5));
+                if (res.getString(5).equals("Dentist"))
+                    dr = dentist;
+                else
+                    dr = hygienist;
+                dat = new Date(LocalDate.parse(res.getString(6), formatter));
+                Address addr = new Address(res.getInt(13), res.getString(14), res.getString(15), res.getString(16), res.getString(17));
                 Date dob = new Date(LocalDate.parse(res.getString(10), formatter));
-            	Patient pat = new Patient(ttl, res.getString(8), res.getString(9), dob, res.getString(11), addr, res.getInt(12));
-            	int appId = Integer.valueOf(res.getString(13));
-                Time start = new Time(res.getString(14).substring(0, 5));
-            	Time end = new Time(res.getString(15).substring(0, 5));
-            	Partner dr = null;
-            	if (res.getString(16).equals("Dentist"))
-            		dr = dentist;
-            	else
-            		dr = hygienist;
-            	Date dat = new Date(LocalDate.parse(res.getString(17), formatter));
-
-            	//System.out.println(dob.toString() + " " + dat.toString());
-            	
-            	Appointment app = new Appointment(start, end, pat, dr, type, dat, appId);
+                Title ttl = null;
+                switch(res.getString(7)) {
+                    case "Mr":
+                        ttl = Title.MR;
+                        break;
+                    case "Mrs":
+                        ttl = Title.MRS;
+                        break;
+                    case "Miss":
+                        ttl = Title.MISS;
+                        break;
+                    case "Ms":
+                        ttl = Title.MS;
+                        break;
+                    case "Dr":
+                        ttl = Title.DR;
+                        break;
+                }
+                Patient pat = new Patient(ttl, res.getString(8), res.getString(9), dob, res.getString(11), addr, res.getInt(12));
+                app = new Appointment(start, end, pat, dr, type, dat, appId);
             	applist.add(app);
             }     
         }
@@ -200,11 +213,17 @@ public class Appointments  {
 
     public static void add(Appointment app){
     	String date = app.getDate().toString();
-    	String start = app.getStartTime().toString();
-    	String end = app.getEndTime().toString();
     	String partner = app.getPartner().getPartnerType().toString();
-    	int patientId = app.getPatient().getId();
     	String type = app.getType().toString();
+        String start = null;
+        String end = null;
+        int patientId = 0;
+
+        if(app.getStartTime() != null) {
+            start = app.getStartTime().toString();
+            end = app.getEndTime().toString();
+            patientId = app.getPatient().getId();
+        }
     	
     	Connection Conn = null;
         Statement stmt = null;
@@ -220,8 +239,14 @@ public class Appointments  {
         {
         	Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
-            String sql = "INSERT INTO Appointment " +
-            			"VALUES (null, '" + date + "', '" + start + "', '"+ end + "', '" + partner + "', '" + patientId + "', '" + type + "')";
+            String sql;
+            if(app.getStartTime() != null) {
+                sql = "INSERT INTO Appointment " +
+                        "VALUES (null, '" + date + "', '" + start + "', '" + end + "', '" + partner + "', '" + patientId + "', '" + type + "')";
+            } else {
+                sql = "INSERT INTO Appointment (Date, Partner, Type) " +
+                        "VALUES ('" + date + "', '" + partner + "', '" + type + "')";
+            }
             stmt.executeUpdate(sql);
             
             int appId = 0;
