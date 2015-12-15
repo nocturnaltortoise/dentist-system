@@ -2,6 +2,7 @@ package views.components;
 
 import models.Appointment;
 import models.Treatment;
+import models.Treatments;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,6 +80,7 @@ public class ConfirmVisitDialog extends JDialog implements ActionListener {
                     int appId = newTreatment.getApp().getAppId();
                     String treatmentName = newTreatment.getType().toString();
 
+                    Treatments.add(newTreatment);
                 }
 //                panelList.forEach(panel -> System.out.println(panel.getTreatment()));
                 this.dispose();

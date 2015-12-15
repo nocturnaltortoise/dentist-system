@@ -166,21 +166,6 @@ public class Appointments  {
             {
                 int appId = Integer.valueOf(res.getString(1));
                 AppointmentType type = AppointmentType.getAppointmentType(res.getString(2));
-//                switch(res.getString(1))
-//                {
-//                	case "Check-up": type = AppointmentType.CHECK_UP;
-//                		break;
-//                	case "Hygiene": type = AppointmentType.HYGIENE;
-//                		break;
-//					case "Treatment": type = AppointmentType.TREATMENT;
-//						break;
-////                	case "Silver Amalgam Filling": type = AppointmentType.AMALGAM_FILLING;
-////                		break;
-////                	case "White Composite Resin Filling": type = AppointmentType.RESIN_FILLING;
-////                		break;
-////                	case "Gold Crown Fitting": type = AppointmentType.GOLD_CROWN;
-////                		break;
-//                }
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             	Time start = new Time(res.getString(3).substring(0, 5));

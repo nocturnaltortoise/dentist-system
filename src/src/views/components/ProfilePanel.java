@@ -28,6 +28,14 @@ public class ProfilePanel extends JPanel {
         JLabel healthcarePlanLabel = setLabel("Healthcare Plan: ", Color.WHITE, 24);
         JPanel appointments = createAppointmentList(p.getId());
 
+        ArrayList<Appointment> appointmentsList = Appointments.getAll(p.getId());
+
+        JPanel treatments = null;
+        for(Appointment app : appointmentsList){
+            treatments = createTreatmentList(app);
+        }
+        treatments.setLayout(new BoxLayout(treatments, BoxLayout.PAGE_AXIS));
+
         add(image);
         add(nameLabel);
         add(Box.createRigidArea(new Dimension(0, 5)));
@@ -43,8 +51,25 @@ public class ProfilePanel extends JPanel {
             add(healthcarePlanInput);
         }
         add(Box.createRigidArea(new Dimension(0, 10)));
-        add(appointments);
+//        add(appointments);
+        add(treatments);
 
+    }
+
+//    ArrayList<Appointment> appList = Appointments.getAll(patient.patientId);
+//
+//    for(Appointment app: appList){
+//          Treatments.getAll(app);
+//    }
+
+    private JPanel createTreatmentList(Appointment app) {
+        ArrayList<Treatment> tList = Treatments.getAll(app);
+        JPanel temp = new JPanel();
+        temp.setBackground(CustomColor.DARK_GREY);
+        tList.forEach(treatment -> temp.add(new ProfileTreatmentPanel(treatment)));
+        //System.out.println(treatment.toString())
+        //
+        return temp;
     }
 
     private JPanel createAppointmentList(int id) {

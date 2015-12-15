@@ -30,7 +30,6 @@ public enum TreatmentType {
     }
 
     public static TreatmentType getTreatmentType(String type){
-        System.out.println(type);
         switch(type){
             case "Check-up":
                 return CHECK_UP;
