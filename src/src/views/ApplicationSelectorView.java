@@ -16,15 +16,22 @@ public class ApplicationSelectorView extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
 
         Container contentPane = getContentPane();
-        contentPane.setLayout(new FlowLayout());
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
 
-        contentPane.add(startPartnerViewButton);
-        contentPane.add(startSecretaryViewButton);
+        JLabel prompt = new JLabel("Select one:");
+        prompt.setAlignmentX(CENTER_ALIGNMENT);
+        JPanel options = new JPanel();
+        options.add(startPartnerViewButton);
+        options.add(startSecretaryViewButton);
+
+        contentPane.add(prompt);
+        contentPane.add(options);
 
         startPartnerViewButton.addActionListener(this);
         startSecretaryViewButton.addActionListener(this);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
         setVisible(true);
     }
 
