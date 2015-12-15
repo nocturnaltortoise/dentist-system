@@ -41,13 +41,14 @@ public class ProfilePanel extends JPanel implements ActionListener {
 
         appointments.setLayout(new BoxLayout(appointments, BoxLayout.PAGE_AXIS));
 
-        JPanel treatments = null;
+        JPanel treatments = new JPanel();
+        treatments.setBackground(CustomColor.DARK_GREY);
         ArrayList<Treatment> treatmentsList = new ArrayList<>();
         for(Appointment app : appointmentsList){
             for(Treatment treatment : Treatments.getAll(app)){
                 treatmentsList.add(treatment);
             }
-            treatments = createTreatmentList(app);
+            addAll(treatments, app);
         }
 
         double totalCost = 0;
@@ -97,14 +98,9 @@ public class ProfilePanel extends JPanel implements ActionListener {
 //          Treatments.getAll(app);
 //    }
 
-    private JPanel createTreatmentList(Appointment app) {
+    private void addAll(JPanel treatment, Appointment app) {
         ArrayList<Treatment> tList = Treatments.getAll(app);
-        JPanel temp = new JPanel();
-        temp.setBackground(CustomColor.DARK_GREY);
-        tList.forEach(treatment -> temp.add(new ProfileTreatmentPanel(treatment, this)));
-        //System.out.println(treatment.toString())
-        //
-        return temp;
+        tList.forEach(t -> treatment.add(new ProfileTreatmentPanel(t, this)));
     }
 
     private JPanel createAppointmentList(int id) {
