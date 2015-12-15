@@ -11,7 +11,7 @@ public class ProfilePanel extends JPanel {
 
     private final int PADDING = 20;
 
-    public ProfilePanel(Patient p) {
+    public ProfilePanel(Patient p, boolean sec) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -26,8 +26,6 @@ public class ProfilePanel extends JPanel {
         JLabel pLabel = setLabel(p.getPhone(), Color.WHITE, 24);
         JLabel addLabel = setLabel(p.getAddress().toString(), CustomColor.LIGHT_GREY, 24, false);
         JLabel healthcarePlanLabel = setLabel("Healthcare Plan: ", Color.WHITE, 24);
-        JComboBox<HealthcarePlan> healthcarePlanInput = new JComboBox<>(HealthcarePlan.values());
-        healthcarePlanInput.setAlignmentX(CENTER_ALIGNMENT);
         JPanel appointments = createAppointmentList(p.getId());
 
         add(image);
@@ -39,7 +37,11 @@ public class ProfilePanel extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(addLabel);
         add(healthcarePlanLabel);
-        add(healthcarePlanInput);
+        if (sec) {
+            JComboBox<HealthcarePlan> healthcarePlanInput = new JComboBox<>(HealthcarePlan.values());
+            healthcarePlanInput.setAlignmentX(CENTER_ALIGNMENT);
+            add(healthcarePlanInput);
+        }
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(appointments);
 

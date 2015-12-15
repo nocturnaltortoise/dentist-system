@@ -10,10 +10,12 @@ import java.awt.event.ActionListener;
 public class PatientButton extends JButton implements ActionListener{
 
     private Patient patient;
+    private boolean sec;
 
-    public PatientButton(Patient patient) {
+    public PatientButton(Patient patient, boolean sec) {
         super("");
         this.patient = patient;
+        this.sec = sec;
         String name = patient.getName().toString();
         setText(name);
         //setBounds(getX(), getY(), panel.getWidth(), panel.getHeight());
@@ -27,7 +29,7 @@ public class PatientButton extends JButton implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent event){
-        new ProfileView(patient);
+        new ProfileView(patient, sec);
     }
 
 
