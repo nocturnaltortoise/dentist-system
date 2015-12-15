@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class ProfileView extends JFrame {
 
-    public ProfileView(Patient p) {
+    public ProfileView(Patient p, boolean sec) {
         setSize(500,600);
         setTitle("Profile: " + p.getName());
         setLocationRelativeTo(null);
@@ -16,7 +16,7 @@ public class ProfileView extends JFrame {
 
         Container contentPane = getContentPane();
 
-        ProfilePanel profilePanel = new ProfilePanel(p);
+        ProfilePanel profilePanel = new ProfilePanel(p, sec);
         contentPane.add(profilePanel);
 
         setVisible(true);

@@ -17,7 +17,7 @@ public class AppointmentPanel extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
         patient = app.getPatient();
-        PatientButton patientButton = new PatientButton(patient);
+        PatientButton patientButton = new PatientButton(patient, sec);
         patientButton.setAlignmentX(CENTER_ALIGNMENT);
 
         String type = app.getType().toString();
