@@ -1,9 +1,6 @@
 package views.components;
 
-import models.Address;
-import models.Date;
-import models.Patient;
-import models.Title;
+import models.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -113,7 +110,8 @@ public class AddPatientPanel extends JPanel implements ActionListener {
                                                         cityInput.getText(),
                                                         postCodeInput.getText()));
 
-            System.out.println(newPatient.toString());
+//            System.out.println(newPatient.toString());
+            Patients.add(newPatient);
 
             this.parent.dispose();
 

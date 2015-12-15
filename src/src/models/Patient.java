@@ -2,6 +2,7 @@ package models;
 
 public class Patient {
 
+    HealthcarePlan plan = HealthcarePlan.NONE;
     Name name;
     Date dateOfBirth;
     Address address;
@@ -28,6 +29,12 @@ public class Patient {
         this.address = address;
         this.patientId = id;
     }
+
+    public Patient(Title title, String firstName, String surname, Date dateOfBirth, String phone, Address address, int id, HealthcarePlan plan){
+        this(new Name(title, firstName, surname), dateOfBirth, phone, address, id);
+        this.plan = plan;
+    }
+
 
     public int getId() { return patientId; }
     public Name getName() { return name; }

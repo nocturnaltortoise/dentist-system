@@ -69,6 +69,68 @@ public class Patients {
     }
 
     public static void add(Patient patient){
+        Connection Conn = null;
+        Statement stmt;
+
+        try {
+            Class.forName("org.gjt.mm.mysql.Driver").newInstance();
+        } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
+
+        try{
+            Conn = DriverManager.getConnection(DB);
+            stmt = Conn.createStatement();
+
+            String title = patient.getName().getTitle().toString();
+            String firstName = patient.getName().getFirstName();
+            String surname = patient.getName().getSurname();
+            String dateOfBirth = patient.getDateOfBirth().toString();
+            String phone = patient.getPhone();
+            String houseNumber = "" + patient.getAddress().houseNumber;
+            String street = patient.getAddress().streetName;
+            String district = patient.getAddress().districtName;
+            String city = patient.getAddress().cityName;
+            String postcode = patient.getAddress().postCode;
+            String plan = patient.plan.toString();
+
+            String sql = "INSERT INTO Address VALUES(null, '" + houseNumber + "','" + street + "','" + district + "','" + city + "','" + postcode + "'" + ")";
+
+            stmt.executeUpdate(sql);
+
+            ResultSet res = stmt.executeQuery("SELECT MAX(Address.AddressID) FROM Address ");
+
+            int addressId = 0;
+            while(res.next()){
+                addressId = res.getInt(1);
+                System.out.println(addressId);
+            }
+
+
+            sql = "INSERT INTO Patient VALUES(null, '" + title
+            + "','" + firstName + "' , '" + surname + "','" + dateOfBirth + "','" + phone + "','" + addressId + "','" + plan + "'" +  ")";
+
+            stmt.executeUpdate(sql);
+
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (Conn != null)
+                try {
+                    Conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+
+    }
+
+    public static void changePlan(Patient patient, HealthcarePlan plan){
 
     }
 
