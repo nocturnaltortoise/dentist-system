@@ -16,7 +16,7 @@ public class ProfileView extends JFrame {
 
         Container contentPane = getContentPane();
 
-        ProfilePanel profilePanel = new ProfilePanel(p, sec);
+        ProfilePanel profilePanel = new ProfilePanel(p, sec, this);
         contentPane.add(profilePanel);
         pack();
 

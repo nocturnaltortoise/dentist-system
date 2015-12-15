@@ -14,10 +14,15 @@ public class ProfilePanel extends JPanel implements ActionListener {
     private final int PADDING = 20;
     private Patient patient;
     private JComboBox healthcarePlanInput;
+    private JButton submit;
+    private boolean isSecretary;
+    private JFrame parent;
 
-    public ProfilePanel(Patient p, boolean sec) {
+    public ProfilePanel(Patient p, boolean sec, JFrame parent) {
         super();
+        this.parent = parent;
         this.patient = p;
+        this.isSecretary = sec;
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         setBackground(CustomColor.DARK_GREY);
@@ -48,6 +53,7 @@ public class ProfilePanel extends JPanel implements ActionListener {
         double totalCost = 0;
         for(Treatment treatment : treatmentsList){
             totalCost += treatment.getType().getCost();
+            totalCost -= treatment.getAmountPaid();
         }
         treatments.setLayout(new BoxLayout(treatments, BoxLayout.PAGE_AXIS));
 
@@ -77,6 +83,14 @@ public class ProfilePanel extends JPanel implements ActionListener {
 
     }
 
+    public void rebuildProfilePanel(){
+        this.parent.remove(this);
+        System.out.println(this.parent);
+        this.parent.add(new ProfilePanel(this.patient, this.isSecretary, this.parent));
+        this.parent.revalidate();
+        this.parent.repaint();
+    }
+
 //    ArrayList<Appointment> appList = Appointments.getAll(patient.patientId);
 //
 //    for(Appointment app: appList){
@@ -87,7 +101,7 @@ public class ProfilePanel extends JPanel implements ActionListener {
         ArrayList<Treatment> tList = Treatments.getAll(app);
         JPanel temp = new JPanel();
         temp.setBackground(CustomColor.DARK_GREY);
-        tList.forEach(treatment -> temp.add(new ProfileTreatmentPanel(treatment)));
+        tList.forEach(treatment -> temp.add(new ProfileTreatmentPanel(treatment, this)));
         //System.out.println(treatment.toString())
         //
         return temp;

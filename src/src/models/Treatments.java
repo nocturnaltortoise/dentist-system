@@ -53,7 +53,7 @@ public class Treatments {
 
         int appId = treatment.getApp().getAppId();
         String name = treatment.getType().toString();
-        double amountOwed = treatment.getType().getCost();
+        double amountOwed = 0;
 
         Connection Conn = null;
         Statement stmt = null;
@@ -72,6 +72,44 @@ public class Treatments {
 
             String sql = "INSERT INTO Treatment " +
         			"VALUES ('" + appId + "', '" + name + "', '" + amountOwed + "')";
+            stmt.executeUpdate(sql);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (Conn != null)
+                try {
+                    Conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+
+    }
+
+    public static void updateAmountPaid(int appointmentId, double newCost){
+
+        System.out.println(newCost);
+
+        Connection Conn = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.gjt.mm.mysql.Driver").newInstance();
+        } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
+
+        try
+        {
+            Conn = DriverManager.getConnection(DB);
+            stmt = Conn.createStatement();
+
+            String sql = "UPDATE Treatment SET AmountPaid = " + newCost + " WHERE Treatment.AppointmentID = " + appointmentId;
             stmt.executeUpdate(sql);
         }
         catch (SQLException e)
