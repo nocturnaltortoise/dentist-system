@@ -43,7 +43,7 @@ public class ConfirmVisitPanel extends JPanel {
 //    }
 
     public Treatment getTreatment(){
-        return new Treatment((TreatmentType)treatmentType.getSelectedItem(), this.app);
+        return new Treatment((TreatmentType)treatmentType.getSelectedItem(), this.app, ((TreatmentType) treatmentType.getSelectedItem()).getCost());
     }
 
 

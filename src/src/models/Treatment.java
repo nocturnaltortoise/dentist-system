@@ -6,9 +6,9 @@ public class Treatment {
     private double cost;
     private Appointment app;
 
-    public Treatment(TreatmentType treatmentType, Appointment app){
+    public Treatment(TreatmentType treatmentType, Appointment app, double cost){
         this.type = treatmentType;
-        this.cost = this.type.getCost();
+        this.cost = cost;
         this.app = app;
     }
 

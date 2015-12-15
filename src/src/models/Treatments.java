@@ -25,13 +25,14 @@ public class Treatments {
             Conn = DriverManager.getConnection(DB);
             stmt = Conn.createStatement();
 
-            ResultSet res = stmt.executeQuery("SELECT Treatment.AppointmentID, Treatment.TreatmentName " +
+            ResultSet res = stmt.executeQuery("SELECT Treatment.AppointmentID, Treatment.TreatmentName, Treatment.AmountPaid " +
                                             "FROM Treatment WHERE Treatment.AppointmentID = " + app.getAppId());
 
             while(res.next()){
                 String name = res.getString(2);
+                double owed = res.getDouble(3);
 
-                Treatment treatment = new Treatment(TreatmentType.getTreatmentType(name), app);
+                Treatment treatment = new Treatment(TreatmentType.getTreatmentType(name), app, owed);
                 treatmentList.add(treatment);
             }
 
