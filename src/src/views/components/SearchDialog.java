@@ -32,7 +32,7 @@ public class SearchDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event){
-        if(dpanel.getInput().getText() != "") {
+        if(dpanel.getInput().getText() != "" && isInt(dpanel.getInput().getText())) {
             if(resultPanel != null){ dpanel.remove(resultPanel); }
             int patientIDQuery = Integer.valueOf(dpanel.getInput().getText());
             ArrayList<Appointment> results = Appointments.getAll(patientIDQuery);
@@ -43,6 +43,15 @@ public class SearchDialog extends JDialog implements ActionListener {
             getContentPane().add(dpanel);
             dpanel.add(resultPanel);
             pack();
+        }
+    }
+
+    public boolean isInt(String i) {
+        try {
+            int num = Integer.parseInt(i);
+            return true;
+        }catch (Exception e) {
+            return false;
         }
     }
 }

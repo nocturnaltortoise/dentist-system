@@ -38,9 +38,11 @@ public class AppointmentPanel extends JPanel{
 
         if (type != "Holiday") {
             if (sec) {
-                CancelButton cancelButton = new CancelButton(patient.getName().toString(), app);
-                cancelButton.setAlignmentX(CENTER_ALIGNMENT);
-                add(cancelButton);
+                if(!Appointments.isComplete(app)) {
+                    CancelButton cancelButton = new CancelButton(patient.getName().toString(), app);
+                    cancelButton.setAlignmentX(CENTER_ALIGNMENT);
+                    add(cancelButton);
+                }
             } else {
                 CompleteButton completeButton = new CompleteButton(app);
                 completeButton.setAlignmentX(CENTER_ALIGNMENT);

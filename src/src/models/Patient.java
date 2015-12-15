@@ -37,7 +37,7 @@ public class Patient {
     public String getPhone() { return phone; }
     public Address getAddress() { return address; }
     public HealthcarePlan getPlan() { return plan; }
-    public String toString(){ return this.name + this.dateOfBirth.toString() + this.phone + this.address.toString(); }
+    public String toString(){ return this.name + ", " + this.dateOfBirth.toString() + ", " + this.phone; }
 
     public void setPlan(String plan) { this.plan = HealthcarePlan.getHealthcarePlan(plan); }
 }

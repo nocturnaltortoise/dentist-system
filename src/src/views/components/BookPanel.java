@@ -16,6 +16,7 @@ public class BookPanel extends JPanel implements ActionListener {
     private final int PADDING = 20;
     private final int TEXTBOX_SIZE = 300;
     private JTextArea idInput;
+    private JButton searchButton;
     private JTextArea sTimeA;
     private JComboBox titleInput;
     private JTextArea firstNameInput;
@@ -41,8 +42,14 @@ public class BookPanel extends JPanel implements ActionListener {
         titleInput = new JComboBox(Title.values());
         titleInput.setAlignmentX(LEFT_ALIGNMENT);
 
-        JLabel idLabel = new JLabel("Patient ID: ", SwingConstants.LEFT);
-        idInput = new InputArea("", TEXTBOX_SIZE);
+        JPanel searchQPanel = new JPanel();
+        JLabel idLabel = new JLabel("Enter a patient's surname: ", SwingConstants.LEFT);
+        idInput = new InputArea("", TEXTBOX_SIZE - 100);
+        searchButton = new JButton("Search");
+        searchButton.addActionListener(this);
+        searchQPanel.add(idInput);
+        searchQPanel.add(searchButton);
+        searchQPanel.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel firstNameLabel = new JLabel("First Name: ", SwingConstants.LEFT);
         firstNameInput = new InputArea("", TEXTBOX_SIZE);
@@ -74,7 +81,7 @@ public class BookPanel extends JPanel implements ActionListener {
 //        add(surnameLabel);
 //        add(surnameInput);
         add(idLabel);
-        add(idInput);
+        add(searchQPanel);
         add(sTimeL);
         add(sTimeA);
         //add(eTimeL);
@@ -109,6 +116,24 @@ public class BookPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
+
+        if(event.getSource() == searchButton && !idInput.getText().equals("")) {
+            ArrayList<Patient> results = Patients.getByName(idInput.getText());
+            if(results.size() > 0) {
+                Object[] resultsArr = results.toArray();
+                Patient pat = (Patient) JOptionPane.showInputDialog(
+                        this,
+                        "Select a patient: ",
+                        "Search: ",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        resultsArr,
+                        resultsArr[0]);
+                if (pat != null) idInput.setText("" + pat.getId());
+            }else {
+                JOptionPane.showMessageDialog(this, "No results found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
 
         if (event.getSource() == submit) {
             String type = typeA.getSelectedItem().toString();

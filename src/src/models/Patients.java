@@ -3,6 +3,7 @@ package models;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Patients {
 
@@ -50,7 +51,6 @@ public class Patients {
                 }
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 Date dob = new Date(LocalDate.parse(res.getString(9), formatter));
-                System.out.println("Here: " + res.getString(12));
                 pat = new Patient(ttl, res.getString(7), res.getString(8), dob, res.getString(10), addr, res.getInt(11), HealthcarePlan.getHealthcarePlan(res.getString(12)));
             }
         }catch (SQLException e)
@@ -109,7 +109,8 @@ public class Patients {
             }
 
 
-            sql = "INSERT INTO Patient VALUES(null, '" + title
+            sql = "INSERT INTO Patient " +
+                    "(Title, First, Last, Dob, Tel, AddressID, PlanName) VALUES('" + title
             + "','" + firstName + "' , '" + surname + "','" + dateOfBirth + "','" + phone + "','" + addressId + "','" + plan + "'" +  ")";
 
             stmt.executeUpdate(sql);
@@ -160,6 +161,45 @@ public class Patients {
                     e.printStackTrace();
                 }
         }
+    }
+
+    public static ArrayList<Patient> getByName(String lastname) {
+        Connection Conn = null;
+        Statement stmt;
+
+        try {
+            Class.forName("org.gjt.mm.mysql.Driver").newInstance();
+        } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
+
+        try{
+            Conn = DriverManager.getConnection(DB);
+            stmt = Conn.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM Patient WHERE UCASE(Last) = '" + lastname.toUpperCase() + "'");
+
+            ArrayList<Patient> results = new ArrayList<>();
+            while(res.next()) {
+                Patient pat = getAll(res.getInt(1));
+                results.add(pat);
+            }
+            return results;
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (Conn != null)
+                try {
+                    Conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+        return null;
     }
 
 }

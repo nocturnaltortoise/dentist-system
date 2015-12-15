@@ -53,7 +53,7 @@ public class Appointment {
     public int getAppId(){ return this.appId; }
     public String toString(){
         if(startTime != null)
-            return this.date + " " + this.startTime + " - " + this.endTime + " Patient: " + this.patient.toString() + " With: " + this.partner.getName() + " Type: " + this.type;
+            return this.date + " " + this.startTime + " - " + this.endTime + " Patient: " + this.patient.toString() + this.patient.getAddress().toString() + " With: " + this.partner.getName() + " Type: " + this.type;
         else
             return this.date + " With: " + this.partner.getName() + " Type: " + this.type;
     }
