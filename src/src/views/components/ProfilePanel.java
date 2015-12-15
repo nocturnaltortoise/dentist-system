@@ -30,10 +30,21 @@ public class ProfilePanel extends JPanel {
         ArrayList<Appointment> appointmentsList = Appointments.getAll(p.getId());
 
         JPanel treatments = null;
+        ArrayList<Treatment> treatmentsList = new ArrayList<>();
         for(Appointment app : appointmentsList){
+            for(Treatment treatment : Treatments.getAll(app)){
+                treatmentsList.add(treatment);
+            }
             treatments = createTreatmentList(app);
         }
+
+        double totalCost = 0;
+        for(Treatment treatment : treatmentsList){
+            totalCost += treatment.getType().getCost();
+        }
         treatments.setLayout(new BoxLayout(treatments, BoxLayout.PAGE_AXIS));
+
+        JLabel treatmentTotalCost = setLabel("£" + totalCost, Color.WHITE, 24);
 
         add(image);
         add(nameLabel);
@@ -51,7 +62,8 @@ public class ProfilePanel extends JPanel {
             add(healthcarePlanInput);
         }
         add(Box.createRigidArea(new Dimension(0, 10)));
-//        add(appointments);
+        add(appointments);
+        add(treatmentTotalCost);
         add(treatments);
 
     }

@@ -18,6 +18,7 @@ public class ProfileView extends JFrame {
 
         ProfilePanel profilePanel = new ProfilePanel(p, sec);
         contentPane.add(profilePanel);
+        pack();
 
         setVisible(true);
     }
