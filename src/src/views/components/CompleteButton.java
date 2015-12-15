@@ -28,8 +28,8 @@ public class CompleteButton extends JButton implements ActionListener {
         int answer = JOptionPane.showConfirmDialog(this, "Mark this appointment as complete?", "Complete", button);
         if(answer == JOptionPane.YES_OPTION) {
             //Cancel
-            new ConfirmVisitDialog((JFrame)SwingUtilities.getRoot(this), this.app);
-            this.setEnabled(false);
+            new ConfirmVisitDialog((JFrame)SwingUtilities.getRoot(this), this.app, this);
+            //this.setEnabled(false);
         }
     }
 }

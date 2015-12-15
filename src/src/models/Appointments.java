@@ -275,46 +275,6 @@ public class Appointments  {
 				}
         }
     }
-
-    public static void addEmpty(Date appDate, Time startTime, Time endTime, Partner appPartner){
-    	String date = appDate.toString();
-    	String start = startTime.toString();
-    	String end = endTime.toString();
-    	String partner = appPartner.getPartnerType().toString();
-    	
-    	Connection Conn = null;
-        Statement stmt = null;
-        try {
-			Class.forName("org.gjt.mm.mysql.Driver").newInstance();
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-        String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
-        
-        try
-        {
-        	Conn = DriverManager.getConnection(DB);
-            stmt = Conn.createStatement();
-            
-            String sql = "INSERT INTO Appointment " +
-            		"VALUES (null, '" + date + "', '" + start + "', '"+ end + "', '" + partner + "', null)";
-            stmt.executeUpdate(sql);
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            if (Conn != null)
-				try {
-					Conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-        }
-    }
     
     public static void delete(Appointment app){
     	
@@ -414,6 +374,45 @@ public class Appointments  {
                 }
         }
         return maxId;
+    }
+
+    public static boolean isComplete(Appointment app) {
+        Connection Conn = null;
+        Statement stmt = null;
+        int amount = 0;
+        try {
+            Class.forName("org.gjt.mm.mysql.Driver").newInstance();
+        } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String DB = "jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
+
+        try {
+            Conn = DriverManager.getConnection(DB);
+            stmt = Conn.createStatement();
+
+            String sql = "SELECT COUNT(*) FROM Treatment WHERE AppointmentID = " + app.getAppId();
+
+            ResultSet resultSet = stmt.executeQuery(sql);
+
+            while(resultSet.next()){
+                amount = resultSet.getInt(1);
+            }
+            return amount > 0;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (Conn != null)
+                try {
+                    Conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+        return amount > 0;
     }
 
 }

@@ -6,8 +6,7 @@ public enum Title {
     MISS("Miss"),
     MS("Ms"),
     MASTER("Master"),
-    DR("Dr"),
-    SWING_MASTER("Swing Master");
+    DR("Dr");
 
     private String title;
 

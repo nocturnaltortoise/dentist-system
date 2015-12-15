@@ -17,9 +17,11 @@ public class ConfirmVisitDialog extends JDialog implements ActionListener {
     private JButton submit;
     private ArrayList<ConfirmVisitPanel> panelList = new ArrayList<>();
     private Appointment app;
+    private CompleteButton button;
 
-    public ConfirmVisitDialog(JFrame parent, Appointment app){
+    public ConfirmVisitDialog(JFrame parent, Appointment app, CompleteButton button){
         super(parent, "Record Visit", true);
+        this.button = button;
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -70,7 +72,7 @@ public class ConfirmVisitDialog extends JDialog implements ActionListener {
             revalidate();
             repaint();
             pack();
-        }else if(event.getSource() == submit){
+        }else if(event.getSource() == submit && panelList.size() > 0){
 //            if(anyEmpty()) JOptionPane.showMessageDialog(this, "You must enter a treatment cost.", "Error", JOptionPane.ERROR_MESSAGE);
 //            else if(anyNotInt()) JOptionPane.showMessageDialog(this, "Treatment costs must be integers.", "Error", JOptionPane.ERROR_MESSAGE);
 //            else {
@@ -82,6 +84,7 @@ public class ConfirmVisitDialog extends JDialog implements ActionListener {
                     Treatments.add(newTreatment);
                 }
 //                panelList.forEach(panel -> System.out.println(panel.getTreatment()));
+                button.setEnabled(false);
                 this.dispose();
 //            }
         }

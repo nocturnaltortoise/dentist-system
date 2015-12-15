@@ -1,6 +1,7 @@
 package views.components;
 
 import models.Appointment;
+import models.Appointments;
 import models.Patient;
 import models.Time;
 
@@ -35,16 +36,17 @@ public class AppointmentPanel extends JPanel{
 
         add(appointmentInfo);
 
-        if(sec) {
-            if (type != "Holiday") {
+        if (type != "Holiday") {
+            if (sec) {
                 CancelButton cancelButton = new CancelButton(patient.getName().toString(), app);
                 cancelButton.setAlignmentX(CENTER_ALIGNMENT);
                 add(cancelButton);
+            } else {
+                CompleteButton completeButton = new CompleteButton(app);
+                completeButton.setAlignmentX(CENTER_ALIGNMENT);
+                add(completeButton);
+                if(Appointments.isComplete(app)) completeButton.setEnabled(false);
             }
-        }else {
-            CompleteButton completeButton = new CompleteButton(app);
-            completeButton.setAlignmentX(CENTER_ALIGNMENT);
-            add(completeButton);
         }
 
     }
