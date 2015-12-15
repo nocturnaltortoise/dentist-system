@@ -34,6 +34,8 @@ public class ProfilePanel extends JPanel implements ActionListener {
 
         ArrayList<Appointment> appointmentsList = Appointments.getAll(p.getId());
 
+        appointments.setLayout(new BoxLayout(appointments, BoxLayout.PAGE_AXIS));
+
         JPanel treatments = null;
         ArrayList<Treatment> treatmentsList = new ArrayList<>();
         for(Appointment app : appointmentsList){

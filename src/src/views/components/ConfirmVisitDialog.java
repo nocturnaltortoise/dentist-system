@@ -66,12 +66,11 @@ public class ConfirmVisitDialog extends JDialog implements ActionListener {
             ConfirmVisitPanel newPanel = new ConfirmVisitPanel(this.app);
 
             panelList.add(newPanel);
-            panelList.forEach(panel -> treatmentsPanel.add(panel)); //look, I can java 8!
+            panelList.forEach(panel -> treatmentsPanel.add(panel));
             revalidate();
             repaint();
             pack();
         }else if(event.getSource() == submit){
-            // should do something more useful than printing - like adding to a patient's list of treatments
 //            if(anyEmpty()) JOptionPane.showMessageDialog(this, "You must enter a treatment cost.", "Error", JOptionPane.ERROR_MESSAGE);
 //            else if(anyNotInt()) JOptionPane.showMessageDialog(this, "Treatment costs must be integers.", "Error", JOptionPane.ERROR_MESSAGE);
 //            else {

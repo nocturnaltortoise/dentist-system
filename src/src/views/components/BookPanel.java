@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class BookPanel extends JPanel implements ActionListener {
 
@@ -87,10 +89,28 @@ public class BookPanel extends JPanel implements ActionListener {
         add(submit);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent event){
+    private boolean overlap(Time startTime, Time endTime, Date appDate, Patient patient){
+        boolean overlap = false;
+        for(Appointment app : Appointments.getAll().stream()
+                                                    .filter(appointment -> appointment.getType() != AppointmentType.HOLIDAY)
+                                                    .collect(Collectors.toList()))
+        {
 
-        if(event.getSource() == submit){
+            if(patient.getId() == app.getPatient().getId()
+                    && appDate.equals(app.getDate())
+                    && (endTime.getTime().isAfter(app.getStartTime().getTime())
+                    && startTime.getTime().isBefore(app.getStartTime().getTime()))){
+//&& startTime.getTime().isBefore(app.getStartTime().getTime())
+                overlap = true;
+            }
+        }
+        return overlap;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+
+        if (event.getSource() == submit) {
             String type = typeA.getSelectedItem().toString();
             Appointment newAppointment;
 
@@ -99,23 +119,33 @@ public class BookPanel extends JPanel implements ActionListener {
             Date appDate = new Date(dateA.getText());
             AppointmentType appType = AppointmentType.getAppointmentType(type);
 
-            if (type != "Holiday") {
+            if (!type.equals("Holiday")) {
                 Time startTime = new Time(sTimeA.getText());
                 Time endTime = startTime.plusMinutes(appLength);
                 Patient appPatient = Patients.getAll(Integer.valueOf(idInput.getText()));
-                newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate, 0);
-            }else newAppointment = new Appointment(appPartner, appType, appDate, 0);
 
-            System.out.println(newAppointment.toString());
+                if (!overlap(startTime, endTime, appDate, appPatient)) {
+                    newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate, 0);
+                    Appointments.add(newAppointment);
+                    newAppointment.setAppId(Appointments.getMaxAppId());
+                    rebuild();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Appointment overlaps with another appointment.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
 
-            Appointments.add(newAppointment);
-
-            newAppointment.setAppId(Appointments.getMaxAppId());
-
-            SecretaryView currentView = (SecretaryView)SwingUtilities.getRoot(this).getParent();
-            currentView.rebuildCalendar();
-            parent.dispose();
+            } else {
+                newAppointment = new Appointment(appPartner, appType, appDate, 0);
+                Appointments.add(newAppointment);
+                newAppointment.setAppId(Appointments.getMaxAppId());
+                rebuild();
+            }
         }
     }
 
+    private void rebuild(){
+        SecretaryView currentView = (SecretaryView)SwingUtilities.getRoot(this).getParent();
+        currentView.rebuildCalendar();
+        parent.dispose();
+    }
 }
+

@@ -106,7 +106,6 @@ public class Patients {
             int addressId = 0;
             while(res.next()){
                 addressId = res.getInt(1);
-                System.out.println(addressId);
             }
 
 
