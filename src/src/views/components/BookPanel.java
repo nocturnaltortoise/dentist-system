@@ -100,15 +100,18 @@ public class BookPanel extends JPanel implements ActionListener {
         boolean overlap = false;
         for(Appointment app : Appointments.getAll().stream()
                                                     .filter(appointment -> appointment.getType() != AppointmentType.HOLIDAY)
-                                                    .collect(Collectors.toList()))
-        {
-
-            if(patient.getId() == app.getPatient().getId()
-                    && appDate.equals(app.getDate())
-                    && (endTime.getTime().isAfter(app.getStartTime().getTime())
-                    && startTime.getTime().isBefore(app.getStartTime().getTime()))){
-//&& startTime.getTime().isBefore(app.getStartTime().getTime())
-                overlap = true;
+                                                    .collect(Collectors.toList())) {
+            if (patient.getId() == app.getPatient().getId()
+                    && appDate.equals(app.getDate())) {
+                if (startTime.getTime().isBefore(app.getStartTime().getTime())
+                        && endTime.getTime().isBefore(app.getStartTime().getTime())
+                        || startTime.getTime().isAfter(app.getEndTime().getTime())
+                        && endTime.getTime().isAfter(app.getEndTime().getTime())) {
+                    overlap = false;
+                } else {
+                    overlap = true;
+                    return overlap;
+                }
             }
         }
         return overlap;
