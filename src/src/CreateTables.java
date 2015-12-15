@@ -15,7 +15,7 @@ public class CreateTables
                 {
                         Conn = DriverManager.getConnection(DB);
                         stmt = Conn.createStatement();
-//                        String sql = "DROP TABLE Treatment";
+//                        String sql = "DROP TABLE Patient";
 //                        stmt.executeUpdate(sql);
 
 
@@ -40,42 +40,42 @@ public class CreateTables
 //                        stmt.executeUpdate(sql);
 //
 //
-//                        sql = "CREATE TABLE Patient " +
-//                        	"(PatientID INTEGER AUTO_INCREMENT, " +
-//                            " Title VARCHAR(10), " +
-//                            " First VARCHAR(50) NOT NULL, " +
-//                            " Last VARCHAR(50) NOT NULL, " +
-//                            " Dob DATE, " +
-//                            " Tel VARCHAR(20), " +
-//                            " AddressID INTEGER NOT NULL, " +
-//                            " PlanName VARCHAR(30), " +
-//                            " PRIMARY KEY ( PatientID ), " +
-//                            " FOREIGN KEY (AddressID) REFERENCES Address(AddressID), " +
-//                            " FOREIGN KEY (PlanName) REFERENCES Plan(Name))";
+                        String sql = "CREATE TABLE Patient " +
+                        	"(PatientID INTEGER AUTO_INCREMENT, " +
+                            " Title VARCHAR(10), " +
+                            " First VARCHAR(50) NOT NULL, " +
+                            " Last VARCHAR(50) NOT NULL, " +
+                            " Dob DATE, " +
+                            " Tel VARCHAR(20), " +
+                            " AddressID INTEGER NOT NULL, " +
+                            " PlanName VARCHAR(30), " +
+                            " PRIMARY KEY ( PatientID ), " +
+                            " FOREIGN KEY (AddressID) REFERENCES Address(AddressID), " +
+                            " FOREIGN KEY (PlanName) REFERENCES Plan(Name))";
+
+                        stmt.executeUpdate(sql);
+
+                        sql = "CREATE TABLE Appointment " +
+                            "(AppointmentID INTEGER AUTO_INCREMENT, " +
+                            " Date DATE NOT NULL, " +
+                            " StartTime TIME, " +
+                            " EndTime TIME, " +
+                            " Partner VARCHAR(10) NOT NULL, " +
+                            " PatientID INTEGER, " +
+                            " Type VARCHAR(30) NOT NULL," +
+                            " PRIMARY KEY ( AppointmentID ), " +
+                            " FOREIGN KEY (PatientID) REFERENCES Patient(PatientID))";
+
+                        stmt.executeUpdate(sql);
 //
-//                        stmt.executeUpdate(sql);
-//
-//                        String sql = "CREATE TABLE Appointment " +
-//                            "(AppointmentID INTEGER AUTO_INCREMENT, " +
-//                            " Date DATE NOT NULL, " +
-//                            " StartTime TIME, " +
-//                            " EndTime TIME, " +
-//                            " Partner VARCHAR(10) NOT NULL, " +
-//                            " PatientID INTEGER, " +
-//                            " Type VARCHAR(30) NOT NULL," +
-//                            " PRIMARY KEY ( AppointmentID ), " +
-//                            " FOREIGN KEY (PatientID) REFERENCES Patient(PatientID))";
-//
-//                        stmt.executeUpdate(sql);
-//
-//                        String sql = "CREATE TABLE Treatment " +
-//                            "(AppointmentID INTEGER NOT NULL, " +
-//                            " TreatmentName VARCHAR(30) NOT NULL, " +
-//                            " AmountPaid DOUBLE NOT NULL, " +
-//                            " PRIMARY KEY ( AppointmentID, TreatmentName ), " +
-//                            " FOREIGN KEY (AppointmentID) REFERENCES Appointment(AppointmentID))";
-//
-//                        stmt.executeUpdate(sql);
+                        sql = "CREATE TABLE Treatment " +
+                            "(AppointmentID INTEGER NOT NULL, " +
+                            " TreatmentName VARCHAR(30) NOT NULL, " +
+                            " AmountPaid DOUBLE NOT NULL, " +
+                            " PRIMARY KEY ( AppointmentID, TreatmentName ), " +
+                            " FOREIGN KEY (AppointmentID) REFERENCES Appointment(AppointmentID))";
+
+                        stmt.executeUpdate(sql);
                 }
                 catch (SQLException e)
                 {
