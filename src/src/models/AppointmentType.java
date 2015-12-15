@@ -3,10 +3,8 @@ package models;
 public enum AppointmentType {
     HYGIENE("Hygiene"),
     CHECK_UP("Check-up"),
-    TREATMENT("Treatment");
-//    AMALGAM_FILLING("Silver Amalgam Filling"),
-//    RESIN_FILLING("White Composite Resin Filling"),
-//    GOLD_CROWN("Gold Crown Fitting");
+    TREATMENT("Treatment"),
+    HOLIDAY("Holiday");
 
     private String type;
     AppointmentType(String t) { type = t; }
@@ -15,10 +13,8 @@ public enum AppointmentType {
         String[] temp = {
                 HYGIENE.toString(),
                 CHECK_UP.toString(),
-                TREATMENT.toString() };
-//                AMALGAM_FILLING.toString(),
-//                RESIN_FILLING.toString(),
-//                GOLD_CROWN.toString() };
+                TREATMENT.toString(),
+                HOLIDAY.toString() };
         return temp;
     }
 
@@ -28,10 +24,8 @@ public enum AppointmentType {
                 return CHECK_UP;
             case "Hygiene":
                 return HYGIENE;
-//            case "Amalgam Filling":
-//                return AMALGAM_FILLING;
-//            case "Resin Filling":
-//                return RESIN_FILLING;
+            case "Holiday":
+                return HOLIDAY;
             default:
                 return TREATMENT;
         }
@@ -44,6 +38,8 @@ public enum AppointmentType {
                 return 20;
             case CHECK_UP:
                 return 20;
+            case HOLIDAY:
+                return 0;
             default:
                 return 60;
         }
@@ -51,13 +47,6 @@ public enum AppointmentType {
     }
 
     public static long getLength(String appType){
-        switch(appType){
-            case "Hygiene":
-                return 20;
-            case "Check Up":
-                return 20;
-            default:
-                return 60;
-        }
+        return getLength(getAppointmentType(appType));
     }
 }

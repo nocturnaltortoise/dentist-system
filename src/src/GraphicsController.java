@@ -1,3 +1,4 @@
+import models.Appointments;
 import views.ApplicationSelectorView;
 
 import javax.swing.*;

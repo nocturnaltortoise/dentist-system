@@ -91,15 +91,20 @@ public class BookPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent event){
 
         if(event.getSource() == submit){
-            Time startTime = new Time(sTimeA.getText());
-            long appLength = AppointmentType.getLength(typeA.getSelectedItem().toString());
-            Time endTime = startTime.plusMinutes(appLength);
-            Patient appPatient = Patients.getAll(Integer.valueOf(idInput.getText()));
-            Partner appPartner = Partners.getPartnerFromType(partnerA.getSelectedItem().toString());
-            AppointmentType appType = AppointmentType.getAppointmentType(typeA.getSelectedItem().toString());
-            Date appDate = new Date(dateA.getText());
+            String type = typeA.getSelectedItem().toString();
+            Appointment newAppointment;
 
-            Appointment newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate, 0);
+            long appLength = AppointmentType.getLength(type);
+            Partner appPartner = Partners.getPartnerFromType(partnerA.getSelectedItem().toString());
+            Date appDate = new Date(dateA.getText());
+            AppointmentType appType = AppointmentType.getAppointmentType(type);
+
+            if (type != "Holiday") {
+                Time startTime = new Time(sTimeA.getText());
+                Time endTime = startTime.plusMinutes(appLength);
+                Patient appPatient = Patients.getAll(Integer.valueOf(idInput.getText()));
+                newAppointment = new Appointment(startTime, endTime, appPatient, appPartner, appType, appDate, 0);
+            }else newAppointment = new Appointment(appPartner, appType, appDate, 0);
 
             System.out.println(newAppointment.toString());
 
