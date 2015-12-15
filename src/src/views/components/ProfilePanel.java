@@ -25,7 +25,6 @@ public class ProfilePanel extends JPanel {
         JLabel dobLabel = setLabel(p.getDateOfBirth().toString(), CustomColor.LIGHT_GREY, 30);
         JLabel pLabel = setLabel(p.getPhone(), Color.WHITE, 24);
         JLabel addLabel = setLabel(p.getAddress().toString(), CustomColor.LIGHT_GREY, 24, false);
-        JLabel healthcarePlanLabel = setLabel("Healthcare Plan: ", Color.WHITE, 24);
         JPanel appointments = createAppointmentList(p.getId());
 
         ArrayList<Appointment> appointmentsList = Appointments.getAll(p.getId());
@@ -44,10 +43,11 @@ public class ProfilePanel extends JPanel {
         add(pLabel);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(addLabel);
-        add(healthcarePlanLabel);
         if (sec) {
+            JLabel healthcarePlanLabel = setLabel("Healthcare Plan: ", Color.WHITE, 24);
             JComboBox<HealthcarePlan> healthcarePlanInput = new JComboBox<>(HealthcarePlan.values());
             healthcarePlanInput.setAlignmentX(CENTER_ALIGNMENT);
+            add(healthcarePlanLabel);
             add(healthcarePlanInput);
         }
         add(Box.createRigidArea(new Dimension(0, 10)));
