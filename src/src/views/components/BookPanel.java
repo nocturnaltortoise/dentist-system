@@ -101,8 +101,7 @@ public class BookPanel extends JPanel implements ActionListener {
         for(Appointment app : Appointments.getAll().stream()
                                                     .filter(appointment -> appointment.getType() != AppointmentType.HOLIDAY)
                                                     .collect(Collectors.toList())) {
-            if (patient.getId() == app.getPatient().getId()
-                    && appDate.equals(app.getDate())) {
+            if (appDate.equals(app.getDate())) {
                 if (startTime.getTime().isBefore(app.getStartTime().getTime())
                         && endTime.getTime().isBefore(app.getStartTime().getTime())
                         || startTime.getTime().isAfter(app.getEndTime().getTime())
