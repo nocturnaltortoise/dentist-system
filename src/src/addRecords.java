@@ -5,6 +5,8 @@ import java.sql.Statement;
  
 public class addRecords
 {
+
+        //This doesn't need to be ran again, it's here to show how we added test data.
         public static void main (String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
         {
                 Connection Conn = null;

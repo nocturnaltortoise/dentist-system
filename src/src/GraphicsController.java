@@ -5,6 +5,7 @@ import javax.swing.*;
 
 public class GraphicsController {
 
+    //This is the start point for the application.
     public static void main(String[] args){
 //        setLookAndFeel("cross platform");
         new ApplicationSelectorView(500,500);

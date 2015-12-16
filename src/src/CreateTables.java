@@ -5,6 +5,8 @@ import java.sql.Statement;
  
 public class CreateTables
 {
+
+        //This doesn't need to be ran again - it has already created the databas tables. It's here just to show what we did.
         public static void main (String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
         {
                 Connection Conn = null;

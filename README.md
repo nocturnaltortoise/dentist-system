@@ -1,9 +1,6 @@
 # dentist-system
 
-# TO DO:
-## Frontend
-- subscribe/unsubscribe to healthcare plan button on patient profile
-- list treatments on patient profile - how are treatments linked to the patient - how do we get a list of treatments from each patient?
-- show total cost owed on patient profile
-- allow editing of total cost owed
-- "Record when a patient has paid their outstanding bill, such that their latest treatments have been paid for, and the total cost owed is now zero." - need to display this on the patient profile probably, so need an input box for this date.
+## To Run The App:
+- Compile and run GraphicsController.java,
+making sure Connector/J's jar is included as a dependency (or in the classpath).
+- You *don't* need to run addRecords or CreateTables again, they were used to create database tables and add records to them, which has already been done. 
