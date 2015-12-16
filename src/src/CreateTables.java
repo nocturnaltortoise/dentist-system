@@ -8,39 +8,44 @@ public class CreateTables
         public static void main (String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
         {
                 Connection Conn = null;
-                Statement stmt = null;
+                Statement stmt;
                 Class.forName("org.gjt.mm.mysql.Driver").newInstance();
                 String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
                 try
                 {
                         Conn = DriverManager.getConnection(DB);
                         stmt = Conn.createStatement();
-//                        String sql = "DROP TABLE Patient";
-//                        stmt.executeUpdate(sql);
+
+                        String sql = "CREATE TABLE Address " +
+                        	"(AddressID INTEGER AUTO_INCREMENT, " +
+                        	" HouseNum INTEGER NOT NULL, " +
+                        	" Street VARCHAR(50) NOT NULL, " +
+                        	" District VARCHAR(50), " +
+                        	" City VARCHAR(50) NOT NULL, " +
+                        	" Postcode VARCHAR(15) NOT NULL, " +
+                        	" PRIMARY KEY ( AddressID ))";
+
+                        stmt.executeUpdate(sql);
 
 
-//                        String sql = "CREATE TABLE Address " +
-//                        	"(AddressID INTEGER AUTO_INCREMENT, " +
-//                        	" HouseNum INTEGER NOT NULL, " +
-//                        	" Street VARCHAR(50) NOT NULL, " +
-//                        	" District VARCHAR(50), " +
-//                        	" City VARCHAR(50) NOT NULL, " +
-//                        	" Postcode VARCHAR(15) NOT NULL, " +
-//                        	" PRIMARY KEY ( AddressID ))";
+                        sql = "CREATE TABLE Plan " +
+                        	"(Name VARCHAR(30) UNIQUE NOT NULL, " +
+                            " MonthlyP INTEGER NOT NULL, " +
+                            " Level VARCHAR(100) NOT NULL, " +
+                            " PRIMARY KEY ( Name ))";
+
+                        sql = "CREATE TABLE Plan " +
+                        	"(Name VARCHAR(30) UNIQUE NOT NULL, " +
+                            " MonthlyPayment INTEGER NOT NULL, " +
+                            " CheckUps INTEGER NOT NULL, " +
+                                "Hygiene INTEGER NOT NULL, "+
+                                "Repairs INTEGER NOT NULL, " +
+                            " PRIMARY KEY ( Name ))";
 //
-//                        stmt.executeUpdate(sql);
-//
-//
-//                        sql = "CREATE TABLE Plan " +
-//                        	"(Name VARCHAR(30) UNIQUE NOT NULL, " +
-//                            " MonthlyP INTEGER NOT NULL, " +
-//                            " Level VARCHAR(100) NOT NULL, " +
-//                            " PRIMARY KEY ( Name ))";
-//
-//                        stmt.executeUpdate(sql);
-//
-//
-                        String sql = "CREATE TABLE Patient " +
+                        stmt.executeUpdate(sql);
+
+
+                        sql = "CREATE TABLE Patient " +
                         	"(PatientID INTEGER AUTO_INCREMENT, " +
                             " Title VARCHAR(10), " +
                             " First VARCHAR(50) NOT NULL, " +

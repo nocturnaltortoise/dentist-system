@@ -17,25 +17,25 @@ public class addRecords
                         stmt = Conn.createStatement();
                         String sql;
 
-//                        sql = "INSERT INTO Plan " +
-//                                "VALUES ('NONE', 0, '0 check-ups, 0 hygiene visits and 0 repairs per year')";
-//                        stmt.executeUpdate(sql);
+                        sql = "INSERT INTO Plan " +
+                                "VALUES ('NONE', 0, 0, 0, 0)";
+                        stmt.executeUpdate(sql);
 
-//                        sql = "INSERT INTO Plan " +
-//                                "VALUES ('NHS Free Plan', 0, '2 check-ups, 2 hygiene visits and 6 repairs per year')";
-//                        stmt.executeUpdate(sql);
-//
-//                        sql = "INSERT INTO Plan " +
-//                                "VALUES ('Maintenance Plan', 15, '2 check-ups and 2 hygiene visits per year')";
-//                        stmt.executeUpdate(sql);
-//
-//                        sql = "INSERT INTO Plan " +
-//                                "VALUES ('Oral Health Plan', 21, '2 check-ups and 4 hygiene visits per year')";
-//                        stmt.executeUpdate(sql);
-//
-//                        sql = "INSERT INTO Plan " +
-//                                "VALUES ('Dental Repair Plan', 36, '2 check-ups, 2 hygiene visits and up to 2 repairs per year')";
-//                        stmt.executeUpdate(sql);
+                        sql = "INSERT INTO Plan " +
+                                "VALUES ('NHS Free Plan', 0, 2, 2, 6)";
+                        stmt.executeUpdate(sql);
+
+                        sql = "INSERT INTO Plan " +
+                                "VALUES ('Maintenance Plan', 15, 2, 2, 0)";
+                        stmt.executeUpdate(sql);
+
+                        sql = "INSERT INTO Plan " +
+                                "VALUES ('Oral Health Plan', 21, 2, 4, 0)";
+                        stmt.executeUpdate(sql);
+
+                        sql = "INSERT INTO Plan " +
+                                "VALUES ('Dental Repair Plan', 36, 2, 2, 2)";
+                        stmt.executeUpdate(sql);
 //
 //                        sql = "INSERT INTO Address " +
 //                                "VALUES (null, 51, 'Wellington Street', null, 'Sheffield', 'S1 4HL')";
