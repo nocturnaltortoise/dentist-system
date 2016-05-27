@@ -12,7 +12,7 @@ public class addRecords
                 Connection Conn = null;
                 Statement stmt = null;
                 Class.forName("org.gjt.mm.mysql.Driver").newInstance();
-                String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
+                String DB=""; // add url to mysql server here (should look like jdbc:mysql:someserverurl)
                 try
                 {
                         Conn = DriverManager.getConnection(DB);
