@@ -12,7 +12,7 @@ public class CreateTables
                 Connection Conn = null;
                 Statement stmt;
                 Class.forName("org.gjt.mm.mysql.Driver").newInstance();
-                String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team001?user=team001&password=55e68e81";
+                String DB=""; //add a url to a mysql server here
                 try
                 {
                         Conn = DriverManager.getConnection(DB);
